@@ -1,0 +1,30 @@
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+{% for key,value in crypto.DISPLAY.items %}
+
+
+
+
+<div class="jumbotron">
+  <h1 class="display 4">{{ key }}</h1>
+  Price:{{ value.USD.PRICE }}<br>
+  HIGH:{{ value.USD.HIGHDAY }}<br>
+  LOW:{{ value.USD.LOWDAY }}<br>
+  Cap:{{ value.USD.MKTCAP }}<br>
+  <br>
+  <br>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+  {% endfor %}
+{% endblock content %}

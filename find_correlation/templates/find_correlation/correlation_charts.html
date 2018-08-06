@@ -1,0 +1,54 @@
+{% extends "get_data/base.html" %}
+
+
+
+
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+  <h1>The correlation is : </h1>
+{# <img src="{% static 'data.png' %}" alt=""class="img-fluid" alt="Responsive image"> #}
+
+
+</div>
+
+{{corr_coef}}
+<br>
+{{corr_message}}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="container-fluid">
+        {{plot|safe}}
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <div class="container-fluid">
+        {{heatmap|safe}}
+      </div>
+
+
+    </div>
+
+
+
+
+</div>
+
+</div>
+
+
+
+{{table|safe}}
+
+
+
+
+
+
+
+</div>
+{% endblock content %}

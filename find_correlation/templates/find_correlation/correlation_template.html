@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Getting Data</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Quant-Core</h1>
+    <h3>Type in a ticker symbol</h3>
+    {{ help }}
+    {{error}}
+
+
+    <form class="" action="{% url 'correlation:find_correlation' %}" method="post">
+      <div class="form-group">
+
+
+        {% csrf_token %}
+        <br>
+        <label for="StartDate">Start Date:</label>
+        <input type="date" class="form-control" id="StartDate" name="start" value="">
+
+        <label for="EndDate">End Date:</label>
+        <input type="date" class="form-control" id="EndDate" name="end" value="">
+        <br>
+
+        <label for="data1">First Data input</label>
+        <input type="text" id="data1" class="form-control"name="symbol1" placeholder="Please add a ticker">
+
+
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1" name='datatype1'>
+            <option value="stock_data">Stock Data</option>
+            <option value='real_estate'>Real Estate</option>
+
+          </select>
+        </div>
+
+        <br>
+        <label for="data2">Second Data Input</label>
+        <input type="text" id="data2" class="form-control"name="symbol2" placeholder="Please add a ticker">
+
+
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Input for Data 2</label>
+          <select class="form-control" id="exampleFormControlSelect1" name='datatype2'>
+            <option value="stock_data">Stock Data</option>
+            <option value='real_estate'>Real Estate</option>
+
+          </select>
+        </div>
+        <br>
+
+        <label for="data2">Third Data Input</label>
+        <input type="text" id="data2" class="form-control"name="symbol3" placeholder="Please add a ticker">
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Input for Data 3</label>
+          <select class="form-control" id="exampleFormControlSelect1" name='datatype3'>
+            <option value="stock_data">Stock Data</option>
+            <option value='real_estate'>Real Estate</option>
+            <option value="none">None</option>
+
+
+          </select>
+        </div>
+        <br>
+
+        <label for="data4">Fourth Data Input</label>
+        <input type="text" id="data4" class="form-control"name="symbol4" placeholder="Please add a ticker">
+
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Input for Data 4</label>
+          <select class="form-control" id="exampleFormControlSelect1" name='datatype4'>
+            <option value="stock_data">Stock Data</option>
+            <option value='real_estate'>Real Estate</option>
+            <option value="none">None</option>
+
+
+          </select>
+        </div>
+        <br>
+
+
+
+        <input type="submit" class="btn btn-primary" value="Get Data">
+      </div>
+    </div>
+
+  </form>
+
+</body>
+</html>
+{% endblock content %}

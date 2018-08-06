@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Getting Data</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Quant-Core</h1>
+    <h3>Type in a ticker symbol</h3>
+    {{ help }}
+
+
+    <form class="" action="{% url 'data:get_the_data' %}" method="post">
+      <div class="form-group">
+
+
+        {% csrf_token %}
+        <br>
+        <label for="Ticker">Ticker:</label>
+        <input type="text" id="Ticker" class="form-control"name="ticker" placeholder="Please add a ticker">
+
+
+        <label for="StartDate">Start Date:</label>
+        <input type="date" class="form-control" id="StartDate" name="start" value="">
+
+        <label for="EndDate">End Date:</label>
+        <input type="date" class="form-control" id="EndDate" name="end" value="">
+        <br>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1" name = 'datatype'>
+            <option value="stock_data">Stock Data</option>
+            <option value='real_estate'>Real Estate</option>
+
+          </select>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Get Data">
+      </div>
+    </div>
+
+  </form>
+
+</body>
+</html>
+{% endblock content %}

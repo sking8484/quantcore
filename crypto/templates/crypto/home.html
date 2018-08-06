@@ -1,0 +1,81 @@
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to Crypto News Network!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+
+  <table class="table table-dark table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">NAME</th>
+        <th scope="col">PRICE</th>
+        <th scope="col">HIGH</th>
+        <th scope="col">LOW</th>
+        <th scope="col">MARKET CAP</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      </div>
+
+  {% for key,value in price.DISPLAY.items %}
+
+
+
+
+
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ value.USD.PRICE }}</td>
+      <td>{{ value.USD.HIGHDAY }}</td>
+      <td>{{ value.USD.LOWDAY }}</td>
+      <td>{{ value.USD.MKTCAP }}</td>
+
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+
+
+
+
+
+
+
+<div class="container">
+  <div class="row">
+
+
+
+
+{% for data in api.Data %}
+<div class="col-sm">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ data.imageurl }}" alt="{{ data.source }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ data.title }}</h5>
+        <p class="card-text">{{ data.body }}</p>
+        <a href="{{ data.url }}" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+
+    </div>
+    <br>
+
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+{% endblock content %}

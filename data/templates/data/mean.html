@@ -1,0 +1,25 @@
+{% extends "get_data/base.html" %}
+
+
+
+
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+  <h1>The Ticker is :{{ticker|upper}} </h1>
+{# <img src="{% static 'data.png' %}" alt=""class="img-fluid" alt="Responsive image"> #}
+
+  {{plotly|safe}}
+  <p>{{data_html|safe}}</p>
+
+
+
+
+
+
+
+
+</div>
+{% endblock content %}
