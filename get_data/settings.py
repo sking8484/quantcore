@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'get_data.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'quantcore',
+            'NAME': 'quantcoredb',
             'USER':'postgres',
-            'PASSWORD':'st3phen1',
+            'PASSWORD':'django1234',
             'HOST':'localhost',
             'PORT':'5432',
 }
