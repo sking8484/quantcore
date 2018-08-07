@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'data.apps.DataConfig',
     'crypto',
-    'find_correlation.apps.FindCorrelationConfig'
+    'find_correlation.apps.FindCorrelationConfig',
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [

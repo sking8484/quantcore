@@ -1,0 +1,47 @@
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+      <main role="main">
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <div class="container">
+            <h1 class="display-3">Welcome to Quant-Core</h1>
+            {{error}}
+            <h3>Please Login</h3>
+
+            <hr>
+            <hr>
+            <form class="" action="{% url 'accounts:login_view' %}" method="post">
+              {% csrf_token %}
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" name="username" value="">
+              <br>
+              <label for="pass">Password:</label>
+              <input type="password" class="form-control"name="password" id="pass" value="">
+              <br>
+
+              <br>
+              <input type="submit" name="" value="Login" class="btn btn-primary">
+            </form>
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
