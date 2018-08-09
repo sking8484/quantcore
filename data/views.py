@@ -17,8 +17,10 @@ import numpy as np
     # return render(request, 'data/just_data.html')
 def get_stock_data(data_type, ticker, start, end):
     api_key = 'J84FuQJ6AzbBM8hWHviv'
+    stock_columns = ['Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume']
     if data_type == 'stock_data':
         stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
+        stock_data = stock_data[stock_columns]
         return stock_data
     elif data_type == 'real_estate':
 
@@ -39,12 +41,12 @@ def get_the_data(request):
                 ticker = request.POST['ticker'].upper()
                 start = datetime.strptime(request.POST['start'][:10],'%Y-%m-%d')
                 end = datetime.strptime(request.POST['end'][:10],'%Y-%m-%d')
-                data = get_stock_data(data_type, ticker, start, end)
+                data = get_stock_data(data_type, ticker, start, end).round(4)
 
                 plotly = plots.stock_plot(data, ticker)
 
                 data.sort_index(ascending = False, inplace = True)
-                data['pct_change'] = data['Adj. Close'].pct_change()
+                data['pct_change'] = (data['Adj. Close'].pct_change().round(4))
                 short_data = data[:50]
 
                 data_plotly = tables.make_stock_table(data, ticker)

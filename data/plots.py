@@ -5,7 +5,7 @@ def stock_plot(database, ticker):
     index_values = database.index
     close_values = database['Adj. Close']
 
-    database['EMA_30'] = database['Adj. Close'].ewm(span=14).mean()
+    database['EMA_30'] = database['Adj. Close'].ewm(span=14).mean().round(4)
     ewm_30 = database['EMA_30']
 
 
