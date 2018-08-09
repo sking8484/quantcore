@@ -13,7 +13,7 @@ def sign_up_view(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password = request.POST['password1'])
                 auth.login(request, user)
-                return redirect('data:home')
+                return redirect('user_posts:home')
         else:
             return render(request, 'accounts/sign_up.html', {'error': 'The passwords must match'})
 
@@ -25,7 +25,7 @@ def login_view(request):
         user = auth.authenticate(username=request.POST['username'], password = request.POST['password'])
         if user is not None:
             auth.login(request, user)
-            return redirect('data:home')
+            return redirect('user_posts:home')
         else:
             return render(request, 'accounts/login.html', {'error':'There is no user with those credentials'})
 
@@ -35,5 +35,5 @@ def login_view(request):
 def logout_view(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('data:home')
+        return redirect('user_posts:home')
     return render(request, 'accounts/login.html', {})

@@ -1,12 +1,14 @@
-[Unit]
-Description=gunicorn daemon
-After=network.target
+server {
+    listen 80;
+    server_name 167.99.237.119;
 
-[Service]
-User=django-deploy
-Group=www-data
-WorkingDirectory=/home/django-deploy/get_data
-ExecStart=/home/django-deploy/myenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/django-deploy/quantcore1/get_data.sock get_data.wsgi:application
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/sammy/myproject;
+    }
 
-[Install]
-WantedBy=multi-user.target
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/django-deploy/quantcore/get_data.sock;
+    }
+}

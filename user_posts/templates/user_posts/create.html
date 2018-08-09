@@ -1,0 +1,58 @@
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+
+
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+      <main role="main">
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <div class="container">
+            <h1 class="display-3">Welcome to Quant-Core</h1>
+            {{error}}
+            <h3>Create</h3>
+
+            <hr>
+            <hr>
+            <form class="" action="{% url 'user_posts:create_post' %}" enctype = 'multipart/form-data'  method="post">
+              {% csrf_token %}
+              <label for="title">Title:</label>
+              <input type="text" class="form-control" id="title" name="title" value="">
+              <br>
+              <label for="body">Body:</label>
+              <textarea class="form-control" id="body" name = 'body' rows="3"></textarea>
+              <br>
+              <label for="URL">URL:</label>
+              <input type="url" class="form-control" id="URL" name="URL" value="">
+              <br>
+              <label for="screen_shot">Screen Shot:</label>
+              <input type="file" class="form-control" id="screen_shot" name="screen_shot" value="">
+              <br>
+
+              <br>
+              <input type="submit" name="" value="Create Post" class="btn btn-primary">
+            </form>
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

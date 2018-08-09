@@ -9,12 +9,7 @@ import numpy as np
 
 # Create your views here.
 
-def home(request):
-    aapl = web.DataReader('AAPL', 'robinhood')
-    aapl.reset_index(inplace = True)
-    aapl.set_index('begins_at', inplace = True)
-    data = aapl
-    return render(request, 'data/home.html',{'data':aapl.to_html()} )
+
 
 
 

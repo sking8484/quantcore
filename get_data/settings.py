@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'data.apps.DataConfig',
     'crypto',
     'find_correlation.apps.FindCorrelationConfig',
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'user_posts.apps.UserPostsConfig'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,49 @@
+{% extends "get_data/base.html" %}
+
+
+{% block content %}
+  <div class="container">
+  <h1>{{post.title}}</h1>
+  <hr>
+  <hr>
+  <img src="{{post.image.url}}" class="img-fluid"alt="">
+  <hr>
+  <div class="row">
+    <div class="col-4">
+      <h4>Posted By: {{post.poster.username}}</h4>
+    </div>
+    <div class="col-8 text-right">
+      <h4>Posted on: {{ post.pub_date_pretty}}</h4>
+
+    </div>
+
+  </div>
+  <div class="container-fluid">
+
+
+<div class="row">
+
+
+    <div class="col-sm">
+      <p>{{post.body}}</p>
+
+          </div>
+</div>
+      </div>
+
+
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+{% endblock content %}
