@@ -12,12 +12,24 @@
     <div class="col-4">
       <h4>Posted By: {{post.poster.username}}</h4>
     </div>
+
     <div class="col-8 text-right">
       <h4>Posted on: {{ post.pub_date_pretty}}</h4>
+    </div>
+    </div>
+    {% if post.url %}
+    <div class="row">
+
+
+    <div class="col-12 text-right">
+      <p><a href="{{post.url}}">{{post.url}}</a> </p>
 
     </div>
+    </div>
+    {% endif %}
 
-  </div>
+
+
   <div class="container-fluid">
 
 

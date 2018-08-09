@@ -17,7 +17,7 @@ class User_Posts(models.Model):
         return self.title
 
     def summary(self):
-        return self.body[:50]
+        return self.body[:50] + ' ...'
 
     def pub_date_pretty(self):
         return self.pub_date.strftime('%b %e %Y')

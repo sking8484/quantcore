@@ -6,6 +6,9 @@ server {
     location /static/ {
         root /home/sammy/myproject;
     }
+    location /media/ {
+        root /home/sammy/myproject;
+    }
 
     location / {
         include proxy_params;
