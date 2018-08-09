@@ -18,7 +18,7 @@ def create_post(request):
             post.body = request.POST['body']
             if request.POST['URL'].startswith('http://') or request.POST['URL'].startswith('https://'):
                 post.url = request.POST['URL']
-            else:
+            elif request.POST['URL']:
                 post.url = 'http://' + request.POST['URL']
 
             post.image = request.FILES['screen_shot']
