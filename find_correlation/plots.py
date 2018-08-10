@@ -24,14 +24,15 @@ def correlation_plot(database):
                             mode='lines',
                             name = cols[2])
         data.append(trace3)
-    if len(cols) >=4:
+    if len(cols) ==4:
         trace3 = go.Scatter(x=database.index, y=database[cols[2]],
                             mode='lines',
                             name = cols[2])
         trace4 = go.Scatter(x=database.index, y=database[cols[3]],
                             mode = 'lines',
                             name = cols[3])
-        data.append(trace3, trace4)
+        data.append(trace3)
+        data.append(trace4)
 
 
     layout = go.Layout(title = ('Plot with ' + str(cols[:])), xaxis={'title':'Date'}, yaxis={'title':'Price'})
