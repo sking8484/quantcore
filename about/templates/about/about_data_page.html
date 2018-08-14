@@ -1,0 +1,115 @@
+{% extends "get_data/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <p>**If you are unsure of any of the indicators/outputs/strategies, please reference the about
+      the strategies page <a href="{% url 'about:about_strategies_page' %}">Here</a>** </p>
+
+    </div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h1>Get Data</h1>
+
+          <hr>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-5">
+
+
+          <h4>Stock Data</h4>
+          <p>This data comes from Quandl, specifically the WIKI data set. It is used for tickers only, and has been deprecated as of early 2018.
+            You can click <a href="https://www.quandl.com/databases/WIKIP">Here</a> for more information about this data.
+            Unfortunately, some symbols are not supported by this dataset, so if you believe that you are typing in the ticker correctly
+            and still getting an error, it may be because that ticker is not supported.
+          </p>
+        </div>
+
+
+        <div class="col-5">
+
+          <img src="{% static 'wiki_prices.png' %}" alt="" width ='600' height="150">
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h1>Correlation Data</h1>
+
+        <hr>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5">
+
+
+        <h4>Stock Data</h4>
+
+        <p>This data comes from Quandl, specifically the WIKI data set. It is used for tickers only, and has been deprecated as of early 2018.
+          You can click <a href="https://www.quandl.com/databases/WIKIP">Here</a> for more information about this data.
+          Unfortunately, some symbols are not supported by this dataset, so if you believe that you are typing in the ticker correctly
+          and still getting an error, it may be because that ticker is not supported.
+        </p>
+      </div>
+
+
+      <div class="col-5">
+
+        <img src="{% static 'wiki_prices.png' %}" alt="" width ='600' height="150">
+
+
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-5">
+        <h4>Real Estate Data</h4>
+        <p>This data comes from Quandl, specifically the Zillow data set. It is used for gathering all data on any real estate areas that you would like.
+        To use it, you have to reference the data set <a href="https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research">Here</a>.
+        <br>
+        <br>
+        Once you are at the dataset
+      please type into the search bar the area you would like to reference. Afterwards, find the code that relates to that area, which is shown in a red rectangle to the right on this page.
+    <br>
+    <br>
+    Once you have found the right key, copy and paste this key back into the correlation form. </p>
+
+
+        </div>
+        <div class="col-5">
+
+          <img src="{% static 'zillow_landing.png' %}" alt="" width ='600' height="150">
+          <br>
+          <br>
+          <img src="{% static 'zillow_indicator.png' %}" alt="" width ='600' height="150">
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+</div>
+</main>
+
+
+{% endblock content %}

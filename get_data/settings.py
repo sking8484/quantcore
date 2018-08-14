@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'crypto',
     'find_correlation.apps.FindCorrelationConfig',
     'accounts.apps.AccountsConfig',
-    'user_posts.apps.UserPostsConfig'
+    'user_posts.apps.UserPostsConfig',
+    'about.apps.AboutConfig'
 ]
 
 MIDDLEWARE = [

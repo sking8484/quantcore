@@ -24,5 +24,6 @@ urlpatterns = [
     path('crypto/', include('crypto.urls')),
     path('correlation/', include('find_correlation.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', include('user_posts.urls'))
+    path('', include('user_posts.urls')),
+    path('about/', include('about.urls'))
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
