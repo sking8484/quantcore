@@ -39,8 +39,10 @@ def get_the_data(request):
             if data_type == 'stock_data':
 
                 ticker = request.POST['ticker'].upper()
-                start = datetime.strptime(request.POST['start'][:10],'%Y-%m-%d')
-                end = datetime.strptime(request.POST['end'][:10],'%Y-%m-%d')
+                start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
+                end = datetime.strptime(request.POST['end'],'%Y-%m-%d')
+                print(start)
+                print(end)
                 data = get_stock_data(data_type, ticker, start, end).round(4)
 
                 plotly = plots.stock_plot(data, ticker)
@@ -67,8 +69,9 @@ def get_the_data(request):
 
 
         except:
-            help = ('Make sure you have entered everything in correctly. Please Go to https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research' +
-            ' and type in your area if you are unsure how to find the correct real estate code. Copy and paste the key into ticker.')
+            help = (
+            ' If you are NOT using chrome, please enter your dates as follows: YYYY-MM-DD.\n Please Go to https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research' +
+            'and type in your area if you are unsure how to find the correct real estate code. Copy and paste the key into ticker.')
             return render(request,'data/get_the_data.html', {'help':help})
 
         return render(request, 'data/mean.html', {'mean':data.mean(),'data_html':data.to_html(),'ticker':ticker,
