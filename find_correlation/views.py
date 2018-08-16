@@ -94,7 +94,10 @@ def find_correlation(request):
                 corr_data_df = pd.concat([corr_data_1, corr_data_2], axis = 1)
 
 
+            corr_data_df.dropna(inplace = True)
             corr_df = corr_data_df.corr()
+            corr_df.dropna(inplace = True)
+
             heatmap = plots.correlation_heatmap(corr_df)
             plot = plots.correlation_plot(corr_data_df)
             table = tables.make_corr_table(corr_data_df)
