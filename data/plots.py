@@ -3,9 +3,9 @@ import plotly.graph_objs as go
 
 def stock_plot(database, ticker):
     index_values = database.index
-    close_values = database['Adj. Close']
+    close_values = database.iloc[:, 0]
 
-    database['EMA_30'] = database['Adj. Close'].ewm(span=14).mean().round(4)
+    database['EMA_30'] = database.iloc[:, 0].ewm(span=14).mean().round(4)
     ewm_30 = database['EMA_30']
 
 

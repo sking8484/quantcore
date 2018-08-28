@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'find_correlation.apps.FindCorrelationConfig',
     'accounts.apps.AccountsConfig',
     'user_posts.apps.UserPostsConfig',
-    'about.apps.AboutConfig'
+    'about.apps.AboutConfig',
+    'regression.apps.RegressionConfig'
 ]
 
 MIDDLEWARE = [

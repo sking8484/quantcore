@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 {% extends "get_data/base.html" %}
 
 {% block content %}
@@ -6,20 +6,18 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Getting Data</title>
+  <title>Regression Page</title>
 </head>
 <body>
   <div class="container">
     <h1>Welcome to Quant-Core</h1>
-    <h3>Type in a ticker symbol</h3>
+    <h3>This is the form for a simple regression. Your first input will be your dependent variable</h3>
     {{ help }}
     {{error}}
     <p>If you would like to grab real estate data, please go <a href="https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research">Here</a> </p>
     <p>If you would like to grab macro economic data, please go <a href="https://www.quandl.com/data/YALE-Yale-Department-of-Economics?keyword=">Here</a> </p>
 
-
-
-    <form class="" action="{% url 'correlation:find_correlation' %}" method="post">
+    <form class="" action="{% url 'regression:simple_regression' %}" method="post">
       <div class="form-group">
 
 
@@ -32,74 +30,38 @@
         <input type="date" class="form-control" id="EndDate" name="end" value="">
         <br>
 
-        <label for="data1">First Data input</label>
+        <label for="data1">Dependent Variable</label>
         <input type="text" id="data1" class="form-control"name="symbol1" placeholder="Please add a ticker">
 
 
 
         <div class="form-group">
-          <label for="exampleFormControlSelect1">Example select</label>
+          <label for="exampleFormControlSelect1">Economic/RealEstate/StockData</label>
           <select class="form-control" id="exampleFormControlSelect1" name='datatype1'>
             <option value="stock_data">Stock Data</option>
             <option value='real_estate'>Real Estate</option>
-            <option value='economic'>Economic Data</option>
-
+            <option value="economic">Economic Data</option>
 
           </select>
         </div>
 
         <br>
-        <label for="data2">Second Data Input</label>
+        <label for="data2">Your Dependet Variable</label>
         <input type="text" id="data2" class="form-control"name="symbol2" placeholder="Please add a ticker">
 
 
 
         <div class="form-group">
-          <label for="exampleFormControlSelect1">Input for Data 2</label>
+          <label for="exampleFormControlSelect1">Economic/RealEstate/StockData</label>
           <select class="form-control" id="exampleFormControlSelect1" name='datatype2'>
             <option value="stock_data">Stock Data</option>
             <option value='real_estate'>Real Estate</option>
-            <option value='economic'>Economic Data</option>
-
-
-          </select>
-        </div>
-        <br>
-
-        <label for="data2">Third Data Input</label>
-        <input type="text" id="data2" class="form-control"name="symbol3" placeholder="Please add a ticker">
-
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Input for Data 3</label>
-          <select class="form-control" id="exampleFormControlSelect1" name='datatype3'>
-            <option value="none">None</option>
-            <option value="stock_data">Stock Data</option>
-            <option value='real_estate'>Real Estate</option>
-            <option value='economic'>Economic Data</option>
-
-
+            <option value="economic">Economic Data</option>
 
           </select>
         </div>
-        <br>
-
-        <label for="data4">Fourth Data Input</label>
-        <input type="text" id="data4" class="form-control"name="symbol4" placeholder="Please add a ticker">
 
 
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Input for Data 4</label>
-          <select class="form-control" id="exampleFormControlSelect1" name='datatype4'>
-            <option value="none">None</option>
-
-            <option value="stock_data">Stock Data</option>
-            <option value='real_estate'>Real Estate</option>
-            <option value='economic'>Economic Data</option>
-
-
-
-          </select>
-        </div>
         <br>
 
 
