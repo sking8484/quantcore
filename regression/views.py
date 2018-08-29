@@ -51,7 +51,7 @@ def simple_regression(request):
                 X.columns = ([ticker2])
             if datatype_2 == 'economic':
                 X = data_views.get_stock_data(datatype_2, ticker2, start, end)
-                X.columns = ([ticker1])
+                X.columns = ([ticker2])
 
 
             """ACTUAL REGRESSION PART"""
