@@ -1,0 +1,225 @@
+{% extends "get_data/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <p>**If you are unsure of any of the indicators/outputs/strategies, please reference the about
+        the strategies page <a href="{% url 'about:about_strategies_page' %}">Here</a>** </p>
+
+      </div>
+
+      <div class="container">
+        <h1>User Guide</h1>
+        <hr>
+        <hr>
+        <hr>
+
+      </div>
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <h1>Get Data</h1>
+
+            <hr>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-5">
+
+
+            <h4>Get Stock Data</h4>
+            <hr>
+            <p>This is the very first option you have under home in the navigation bar. What this function will do for you is grab some sort of data,
+              , be it economic/real esate/stock data. It will also plot a moving average on top of the indicator. Once you click on the get data link,
+              you will be redirected to the first page on the right.
+              <br>
+              <br>
+              What you will then do is input a ticker/real estate/macroeconomic code. You can find more information on this <a href="{% url 'about:about_data_page' %}">Here</a>
+              <br>
+              <br>
+              Once you have found your code, input the code into the form. Make sure you have the correct data type selected. Reference the right image for more help on this.
+
+            </p>
+          </div>
+
+
+
+
+
+
+          <div class="col-5">
+            <br>
+            <br>
+
+            <img src="{% static 'get_data.png' %}" alt="" width ='600' height="125">
+
+
+            <br>
+            <br>
+            <img src="{% static 'ticker_input.png' %}" alt="" width ='600' height="75">
+            <br>
+            <br>
+
+
+            <img src="{% static 'data_type.png' %}" alt="" width ='600' height="75">
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <h1>Regression Analysis</h1>
+
+            <hr>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-5">
+
+
+            <h4>Simple Regression Analysis</h4>
+            <hr>
+
+            <p>This is a simple regression analysis which draws a line made from OLS between the data. What this function will do for you is grab some sort of data,
+              , be it economic/real esate/stock data. If you are not certain how to use a regression, please reference the strategies page <a href="{% url 'about:about_strategies_page' %}">Here</a>
+            </p>
+            <p>
+              Once you click on the get data link,
+              you will be redirected to the form page, which you can see above.
+            </p>
+            <p>Make sure you fill out the fields. Reference the Get Data paragraph from finding how to fill out this form.</p>
+          </div>
+          <div class="col-5">
+            <br>
+            <br>
+
+            <img src="{% static 'get_data.png' %}" alt="" width ='600' height="125">
+
+
+            <br>
+            <br>
+            <img src="{% static 'ticker_input.png' %}" alt="" width ='600' height="75">
+            <br>
+            <br>
+
+
+            <img src="{% static 'data_type.png' %}" alt="" width ='600' height="75">
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <div class="container">
+
+
+
+        <div class="row">
+          <div class="col-5">
+            <h1>Cumulative Returns</h1>
+            <hr>
+            <hr>
+            <p>This page is not yet set up.</p>
+
+          </div>
+
+
+        </div>
+      </div>
+      <div class="container">
+
+
+        <div class="row">
+          <div class="col-5">
+            <h1>Correlation</h1>
+            <hr>
+            <hr>
+          </div>
+
+
+        </div>
+        <div class="row">
+
+
+          <div class="col-5">
+
+            <h4>Heat Map/Corellation analysis</h4>
+            <hr>
+            <p>This is going to create a correlation matrix between the selected indicators/stocks/data. You can grap macroeconomic/real estate data and also ticker data.
+              If you are unfamiliar with how a correlation matrix works, please reference the strategies page <a href="{% url 'about:about_strategies_page' %}">Here</a>
+              <br>
+              <br>
+              When you have arrived at the form page, make sure you enter the data into the date and first two inputs(2), referenced to the right.
+              Make sure that you have also clicked the right data type.
+              <br>
+              <br>
+              If you would like to correlate up to 4 inputs, please make sure to enter the data, aswell as clicking on the correct data type. </p>
+              The other two inputs are set to default none, so please change them if you would like to use those inputs.
+
+            </div>
+            <div class="col-5">
+              <br>
+              <br>
+              <img src="{% static 'corr.png' %}" alt="" width ='600' height="125">
+              <br>
+              <br>
+              <img src="{% static 'corr_ticker.png' %}" alt="" width ='600' height="75">
+              <br>
+              <br>
+              <img src="{% static 'corr_data_type.png' %}" alt="" width ='600' height="75">
+            </div>
+          </div>
+        </div>
+        <div class="container">
+
+
+
+          <div class="row">
+            <div class="col-5">
+              <h1>Strategies</h1>
+              <hr>
+              <hr>
+              <p>This page is not yet set up.</p>
+
+            </div>
+
+
+          </div>
+        </div>
+        <div class="container">
+
+
+
+          <div class="row">
+            <div class="col-5">
+              <h1>Predictive Analytics</h1>
+              <hr>
+              <hr>
+              <p>This page is not yet set up.</p>
+
+            </div>
+
+
+          </div>
+        </div>
+      </main>
+
+
+      {% endblock content %}

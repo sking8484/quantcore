@@ -52,11 +52,7 @@
               Correlation
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Heat Map
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="#">
               Strategies
@@ -77,6 +73,11 @@
               New Post
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about:how_to_use' %}">
+              User Guide
+            </a>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about:about_data_page' %}">
@@ -88,17 +89,18 @@
               About the Strategies
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              About the Plots
-            </a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="#">
               References
             </a>
           </li>
           {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about:how_to_use' %}">
+              User Guide
+            </a>
+          </li>
 
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
@@ -111,11 +113,7 @@
                 About the Strategies
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                About the Plots
-              </a>
-            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="#">
                 References
@@ -163,35 +161,30 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'data:get_the_data' %}">
-                  <span data-feather="file"></span>
+                  <span data-feather="trending-up"></span>
                   Get Stock Data
                 </a>
               </li>
 
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'regression:regression_home' %}">
-                  <span data-feather="shopping-cart"></span>
+                  <span data-feather="activity"></span>
                   Regression Analysis
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
+                  <span data-feather="folder"></span>
                   Cumulative Returns
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'correlation:find_correlation' %}">
-                  <span data-feather="shopping-cart"></span>
+                  <span data-feather="aperture"></span>
                   Correlation
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Heat Map
-                </a>
-              </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="bar-chart-2"></span>
@@ -212,7 +205,14 @@
                 <span data-feather="plus-circle"></span>
               </a>
             </h6>
+
             <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about:how_to_use' %}">
+                  <span data-feather="file-text"></span>
+                  User Guide
+                </a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'about:about_data_page' %}">
                   <span data-feather="file-text"></span>
@@ -225,12 +225,7 @@
                   About the Strategies
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  About the Plots
-                </a>
-              </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="file-text"></span>
@@ -238,6 +233,12 @@
                 </a>
               </li>
               {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about:how_to_use' %}">
+                  <span data-feather="file-text"></span>
+                  User Guide
+                </a>
+              </li>
 
               <ul class="nav flex-column mb-2">
                 <li class="nav-item">
@@ -252,12 +253,7 @@
                     About the Strategies
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    About the Plots
-                  </a>
-                </li>
+
                 <li class="nav-item">
                   <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>

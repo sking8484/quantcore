@@ -5,3 +5,6 @@ def about_data_page(request):
 
 def about_strategies_page(request):
     return render(request, 'about/about_strategies_page.html', {'wait':'This page is in progress'})
+
+def how_to_use(request):
+    return render(request, 'about/how_to_use_page.html')
