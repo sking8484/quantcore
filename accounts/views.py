@@ -6,12 +6,12 @@ from django.contrib import auth
 def sign_up_view(request):
     if request.method == 'POST':
 
-        if request.POST['password1'] == request.POST['password2']:
+        if (request.POST['password1'] == request.POST['password2']) and (request.POST['email1'] == request.POST['email2']):
             try:
                 user = User.objects.get(username=request.POST['username'])
                 return render(request, 'accounts/sign_up.html', {'error':'This username already exists'})
             except User.DoesNotExist:
-                user = User.objects.create_user(request.POST['username'], password = request.POST['password1'])
+                user = User.objects.create_user(request.POST['username'], password = request.POST['password1'], email=request.POST['email1'])
                 auth.login(request, user)
                 return redirect('user_posts:home')
         else:
