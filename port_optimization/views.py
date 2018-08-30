@@ -30,8 +30,7 @@ def optimize(request):
             start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
             if len(tickers) > 10:
                 start = pd.to_datetime('2015-06-01')
-            if len(tickers) > 15:
-                tickers = tickers[:15]
+            
             end = datetime.strptime(request.POST['end'],'%Y-%m-%d')
             datatype = 'stock_data'
             database = pd.DataFrame()
