@@ -103,13 +103,13 @@ def optimize(request):
             portfolio_plot = plots.optimal_plot(non_optimal_position_val['Total_position'], optimal_position_val['Total_position'])
 
 
-            portfolio_table = pd.concat([non_optimal_position_val['Total_position'], optimal_position_val['Total_position']],axis = 1)
+            portfolio_table = pd.concat([optimal_position_val['Total_position'].round(2),non_optimal_position_val['Total_position'].round(2)],axis = 1)
 
             portfolio_table.columns = ['Optimal Position Value','Non Optimal Position Value']
             portfolio_table['Difference'] = portfolio_table['Optimal Position Value'] - portfolio_table['Non Optimal Position Value']
-            table = tables.make_stock_table(portfolio_table)
+            table = tables.make_stock_table(portfolio_table.round(2))
 
-            weights_table = tables.weights(weights_ticks_df)
+            weights_table = tables.weights(weights_ticks_df.round(2))
 
 
             return render(request, 'port_optimization/optimized.html', {'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
