@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'user_posts.apps.UserPostsConfig',
     'about.apps.AboutConfig',
-    'regression.apps.RegressionConfig'
+    'regression.apps.RegressionConfig',
+    'port_optimization.apps.PortOptimizationConfig'
 ]
 
 MIDDLEWARE = [

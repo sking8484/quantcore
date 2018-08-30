@@ -26,5 +26,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', include('user_posts.urls')),
     path('about/', include('about.urls')),
-    path('regression/', include('regression.urls'))
+    path('regression/', include('regression.urls')),
+    path('portfolio_optimization/', include('port_optimization.urls'))
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

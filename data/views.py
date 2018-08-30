@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
 import pandas_datareader as web
-import matplotlib.pyplot as plt
 from datetime import datetime
 import quandl
 from . import plots, tables

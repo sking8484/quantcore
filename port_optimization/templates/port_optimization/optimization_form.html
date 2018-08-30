@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "get_data/base.html" %}
+
+{% block content %}
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Getting Data</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Portfolio Optimization</h1>
+
+
+    <h3>Fill in the following fields</h3>
+    <h5>PLEASE make sure you enter your tickers in with a following comma, I.E. AAPL, GE, TSLA,</h5>
+
+    <h3>{{help}}</h3>
+
+
+
+
+    <form class="" action="{% url 'portfolio_optimization:optimize' %}" method="post">
+      <div class="form-group">
+
+
+        {% csrf_token %}
+        <label for="StartDate">Start Date:</label>
+        <input type="date" class="form-control" id="StartDate" name="start" value="">
+
+        <label for="EndDate">End Date:</label>
+        <input type="date" class="form-control" id="EndDate" name="end" value="">
+        <label for="Amount">Amount of allocation in dollars:</label>
+        <input type="text" id="Amount" class="form-control"name="Amount" placeholder="Please enter the amount allocated to this portfolio">
+        <label for="Tickers">Tickers:</label>
+        <input type="text" id="Tickers" class="form-control"name="Tickers" placeholder="Please add a ticker">
+
+
+
+
+        <br>
+        <input type="submit" class="btn btn-primary" value="Get Data">
+      </div>
+    </div>
+
+  </form>
+
+</body>
+</html>
+{% endblock content %}
