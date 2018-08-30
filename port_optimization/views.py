@@ -9,10 +9,21 @@ def optimize(request):
     if request.method == "POST":
         try:
             tickers = request.POST['Tickers']
+
             tickers = tickers.upper()
-            tickers = str(tickers)
-            tickers = tickers.split(', ')
-            tickers = list(tickers)
+
+
+
+            print(tickers)
+            print(type(tickers))
+            if type(tickers) != list:
+                if "'" in tickers:
+                    tickers = tickers.replace("'", '')
+                tickers = tickers.replace(',  ', ', ')
+                tickers = str(tickers)
+                tickers = tickers.split(', ')
+
+                tickers = list(tickers)
             amount = request.POST['Amount']
             start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
             end = datetime.strptime(request.POST['end'],'%Y-%m-%d')
