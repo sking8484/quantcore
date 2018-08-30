@@ -24,8 +24,12 @@ def optimize(request):
                 tickers = tickers.split(', ')
 
                 tickers = list(tickers)
+
             amount = request.POST['Amount']
+
             start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
+            if len(tickers) > 6:
+                start = pd.to_datetime('2015-06-01')
             end = datetime.strptime(request.POST['end'],'%Y-%m-%d')
             datatype = 'stock_data'
             database = pd.DataFrame()
