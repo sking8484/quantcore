@@ -5,6 +5,7 @@ from datetime import datetime
 import quandl
 from . import plots, tables
 import numpy as np
+import datetime
 
 # Create your views here.
 
@@ -18,11 +19,14 @@ def get_stock_data(data_type, ticker, start, end):
     api_key = 'J84FuQJ6AzbBM8hWHviv'
     stock_columns = ['Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume']
     if data_type == 'stock_data':
+        if start > pd.to_datetime('2018-03-20'):
+            start = pd.to_datetime('2017-03-20')
         try:
             stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
             stock_data = stock_data[stock_columns]
             return stock_data
         except Exception as e:
+            print(e)
 
             import datetime
             years = 5
