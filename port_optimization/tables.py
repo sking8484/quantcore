@@ -10,7 +10,7 @@ def make_stock_table(database):
 
     table = ff.create_table(database)
     table_div = po.plot(table, output_type = 'div', include_plotlyjs=False)
-    return table_div
+    return table_div[:256]
 
 def weights(database):
     database.sort_index(ascending = True, inplace = True)
