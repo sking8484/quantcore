@@ -28,6 +28,8 @@ def optimize(request):
             amount = request.POST['Amount']
 
             start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
+            if len(tickers) > 7:
+                start = pd.to_datetime('2012-01-01')
             if len(tickers) > 15:
                 start = pd.to_datetime('2015-06-01')
                 tickers = tickers[:15]
