@@ -22,10 +22,13 @@ def get_stock_data(data_type, ticker, start, end):
         if start > pd.to_datetime('2018-03-20'):
             start = pd.to_datetime('2017-03-20')
         try:
-            # stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
-            # stock_data = stock_data[stock_columns]
-            # return stock_data
+            stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
+            stock_data = stock_data[stock_columns]
+            return stock_data
+        except Exception as e:
+            print(e)
 
+            import datetime
             years = 5
             days_per_year = 365.24
             five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
@@ -40,25 +43,6 @@ def get_stock_data(data_type, ticker, start, end):
                 stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
 
                 return stock_data
-
-        except Exception as e:
-            print(e)
-
-            import datetime
-            # years = 5
-            # days_per_year = 365.24
-            # five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
-            #
-            # if start > five_years_earlier:
-            #     stock_data = web.DataReader(str(ticker), 'iex',start, end)
-            #     stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
-            #
-            #     return stock_data
-            # else:
-            #     stock_data = web.DataReader(str(ticker), 'iex',five_years_earlier, end)
-            #     stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
-            #
-            #     return stock_data
 
 
     elif data_type == 'real_estate':
