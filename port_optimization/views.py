@@ -61,10 +61,12 @@ def optimize(request):
                 sharpe_arr[ind] = ret_arr[ind]/vol_arr[ind]
             max_sharpe = sharpe_arr.argmax()
             optimized_weights = all_weights[max_sharpe,:]
+            sharpe_ratio = sharpe_arr[max_sharpe]
             max_ret = ret_arr[max_sharpe]
             max_vol = vol_arr[max_sharpe]
             bullet = plots.market_bullet(vol_arr, ret_arr, sharpe_arr, max_vol, max_ret)
             weights_ticks_df = pd.DataFrame()
+
             opt_weights_series = pd.Series(optimized_weights, name='Weights')
             tickers_series = pd.Series(tickers, name = 'Tickers')
             weights_ticks_df = pd.concat([weights_ticks_df,tickers_series, opt_weights_series ], axis = 1)
@@ -96,13 +98,15 @@ def optimize(request):
 
 
             portfolio_table = pd.concat([non_optimal_position_val['Total_position'], optimal_position_val['Total_position']],axis = 1)
-            portfolio_table.columns = ['Non Optimal Position Value', 'Optimal Position value']
+
+            portfolio_table.columns = ['Optimal Position Value','Non Optimal Position Value']
+            portfolio_table['Difference'] = portfolio_table['Optimal Position Value'] - portfolio_table['Non Optimal Position Value']
             table = tables.make_stock_table(portfolio_table)
 
             weights_table = tables.weights(weights_ticks_df)
 
 
-            return render(request, 'port_optimization/optimized.html', {'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
+            return render(request, 'port_optimization/optimized.html', {'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
 
         except Exception as e:
             print(e)
