@@ -6,11 +6,11 @@ import plotly.graph_objs as go
 def make_stock_table(database):
     database.sort_index(ascending = False, inplace = True)
     database.reset_index(inplace = True)
-    database = database
+    database = database[:256]
 
     table = ff.create_table(database)
     table_div = po.plot(table, output_type = 'div', include_plotlyjs=False)
-    table_div = table_div[:256]
+
     return table_div
 
 def weights(database):
