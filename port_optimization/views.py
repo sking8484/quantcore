@@ -23,21 +23,26 @@ def optimize(request):
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
                 data = data_views.get_stock_data(datatype, ticker, start, end)
                 data = data.loc[:, ['Adj. Close']]
+
                 data.rename(columns = {'Adj. Close':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
-                database = pd.concat([database, data], axis = 1)
+                database = database.join(data, how = 'outer')
+                database.dropna(inplace = True)
+
 
             non_optimal_position_val = pd.DataFrame()
             for ticker in tickers:
                 non_optimal_position_val = pd.concat([non_optimal_position_val, database[ticker + ' Position_values']],axis = 1)
+
             non_optimal_position_val['Total_position'] = non_optimal_position_val.sum(axis=1)
 
             """CALCULATE LOG RETURNS"""
             log_df = pd.DataFrame()
             for ticker in tickers:
                 log_df = pd.concat([log_df, database[ticker]], axis = 1)
+
             log_ret = np.log(log_df/log_df.shift(1))
 
 
@@ -86,11 +91,12 @@ def optimize(request):
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
-                database = pd.concat([database, data], axis = 1)
-
+                database = database.join(data, how = 'outer')
+                database.dropna(inplace = True)
             optimal_position_val = pd.DataFrame()
             for ticker in tickers:
                 optimal_position_val = pd.concat([optimal_position_val, database[ticker + ' Position_values']],axis = 1)
+
             optimal_position_val['Total_position'] = optimal_position_val.sum(axis=1)
 
 
