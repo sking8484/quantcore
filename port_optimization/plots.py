@@ -16,7 +16,7 @@ def optimal_plot(non_optimal, optimal):
 def market_bullet(vol_arr, ret_arr, sharpe_arr, max_vol, max_ret):
     trace1 = go.Scatter(x = vol_arr, y = ret_arr,name='Portfolios' ,mode = 'markers',marker = dict( color = sharpe_arr,colorscale='Viridis',showscale=True))
     trace2 = go.Scatter(x = [max_vol], y= [max_ret], name='Optimal Portfolio', mode = 'markers')
-    layout = go.Layout(title='Portfolio Bullet', xaxis={'title':'Returns'}, yaxis={'title':'Volatility'}, legend=dict(x=-.1, y=1.2))
+    layout = go.Layout(title='Portfolio Bullet', xaxis={'title':'Volatility'}, yaxis={'title':'Returns'}, legend=dict(x=-.1, y=1.2))
     data = [trace1, trace2]
     fig = go.Figure(data=data, layout=layout)
     bullet = po.plot(fig, output_type='div',include_plotlyjs=False)
