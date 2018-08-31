@@ -135,6 +135,7 @@ def optimize(request):
             portfolio_table.columns = ['Optimal Position Value','Non Optimal Position Value']
             global global_portfolio_optimal_non_optimal
             global_portfolio_optimal_non_optimal = portfolio_table
+            placeholder = optimal_portfolio_global_holder()
 
 
             portfolio_table['Difference'] = portfolio_table['Optimal Position Value'] - portfolio_table['Non Optimal Position Value']
@@ -151,7 +152,12 @@ def optimize(request):
             return render(request, 'port_optimization/optimization_form.html', {'error':error, 'error_message':error_message})
     return render(request, 'port_optimization/optimization_form.html')
 
-def get_optimal_portfolio_table():
-    
+def optimal_portfolio_global_holder():
+    global_variable_holding = global_portfolio_optimal_non_optimal
+    return global_variable_holding
 
-    return global_portfolio_optimal_non_optimal
+
+def get_optimal_portfolio_table():
+    global_portfolio_money = optimal_portfolio_global_holder()
+
+    return global_portfolio_money
