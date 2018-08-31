@@ -31,7 +31,8 @@ def optimize(request):
             start = pd.to_datetime(request.POST['start'])
             # if len(tickers) > 7:
             #     start = pd.to_datetime('2013-06-01')
-            # if len(tickers) > 15:
+            if len(tickers) > 30:
+                tickers = tickers[:30]
             start = pd.to_datetime('2015-06-01')
             tickers = tickers
 
@@ -69,7 +70,7 @@ def optimize(request):
 
 
             """OPTIMIZATION"""
-            num_ports = 2000
+            num_ports = 5000
             all_weights = np.zeros((num_ports, len(tickers)))
             ret_arr = np.zeros(num_ports)
             vol_arr = np.zeros(num_ports)
