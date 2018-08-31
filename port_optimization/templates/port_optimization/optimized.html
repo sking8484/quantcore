@@ -38,7 +38,7 @@
         <div class="form-group">
           {% csrf_token %}
           <label for="exampleFormControlSelect1">Would you like to run a regression on your portfolio?</label>
-          <select class="form-control" id="exampleFormControlSelect1" name='port_regression'>
+          <select class="form-control" id="exampleFormControlSelect1" name='datatype1'>
             <option value="run">Yes</option>
             <option value='do_not_run'>No</option>
 
@@ -46,14 +46,16 @@
           </select>
         </div>
         <input type="submit" class="btn btn-primary" value="Run Regression">
-        <br>
+
 
       </form>
 
     </div>
 
 
+
   </div>
+  <br>
   <div class="row">
     <div class="col-md-8">
       <div class="container-fluid">

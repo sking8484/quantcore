@@ -23,17 +23,17 @@ def simple_regression(request):
     if request.method == "POST":
         try:
 
-            if request.POST['port_regression']:
-                port_regression = request.POST['port_regression']
-                if port_regression == 'run':
-                    data = port_views.get_optimal_portfolio_table()
-                    data['Returns'] = data['Optimal Position Value']/data['Optimal Position Value'][0]
-                    y = data['Returns']
+            if request.POST['datatype1'] == 'run':
+                port_regression = request.POST['datatype1']
 
-                    X = data_views.get_stock_data('stock_data', 'SPY', pd.to_datetime('12-12-2010'), datetime.now())
-                    X = X['Adj. Close']
-                    X.rename('SP500', inplace = True)
-                else:
+                data = port_views.get_optimal_portfolio_table()
+                data['Returns'] = data['Optimal Position Value']/data['Optimal Position Value'][0]
+                y = data['Returns']
+
+                X = data_views.get_stock_data('stock_data', 'SPY', pd.to_datetime('12-12-2010'), datetime.now())
+                X = X['Adj. Close']
+                X.rename('SP500', inplace = True)
+            elif request.POST['datatype1'] == 'do_not_run':
                     return render(request, 'port_optimization/optimization_form.html')
 
 
