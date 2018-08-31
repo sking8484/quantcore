@@ -74,7 +74,7 @@ def optimize(request):
 
             """OPTIMIZATION"""
             if len(tickers) > 10:
-                num_ports = 5000
+                num_ports = 3000
             num_ports = 8000
             all_weights = np.zeros((num_ports, len(tickers)))
             ret_arr = np.zeros(num_ports)
