@@ -26,8 +26,8 @@ def simple_regression(request):
             datatype_2 = request.POST['datatype2']
             ticker1 = request.POST['symbol1'].upper()
             ticker2 = request.POST['symbol2'].upper()
-            start = datetime.strptime(request.POST['start'][:10],'%Y-%m-%d')
-            end = datetime.strptime(request.POST['end'][:10],'%Y-%m-%d')
+            start = pd.to_datetime(request.POST['start'])
+            end = pd.to_datetime(request.POST['end'])
             # try:
             if datatype_1 == 'stock_data':
                 y = data_views.get_stock_data(datatype_1, ticker1, start, end)
@@ -54,12 +54,14 @@ def simple_regression(request):
                 X.columns = ([ticker2])
 
 
+
             """ACTUAL REGRESSION PART"""
 
             dataframe = pd.DataFrame(X)
-            dataframe = dataframe.join(y)
+            dataframe = dataframe.join(y, how = 'outer')
             dataframe = dataframe.sort_index(ascending = False)
             dataframe.dropna(inplace = True)
+            print(dataframe)
 
             X = dataframe.iloc[:,:1]
             X_name = dataframe.columns[0]
@@ -81,7 +83,7 @@ def simple_regression(request):
         except Exception as e:
             print(e)
             help = (
-            ' If you are NOT using chrome, please enter your dates as follows: YYYY-MM-DD.\n Please Go to https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research' +
+            ' Make sure the data from quandl has enough entries.' +
             'and type in your area if you are unsure how to find the correct real estate code. Copy and paste the key into ticker.')
             return render(request,'regression/regression.html', {'help':help})
 

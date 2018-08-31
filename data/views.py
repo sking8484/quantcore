@@ -19,38 +19,43 @@ def get_stock_data(data_type, ticker, start, end):
     api_key = 'J84FuQJ6AzbBM8hWHviv'
     stock_columns = ['Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume']
     if data_type == 'stock_data':
-        if start > pd.to_datetime('2018-03-20'):
-            start = pd.to_datetime('2017-03-20')
         try:
-            stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
-            stock_data = stock_data[stock_columns]
-            return stock_data
-        except Exception as e:
-            print(e)
-
             import datetime
             years = 5
-            days_per_year = 365.24
+            days_per_year = 365.30
             five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
 
             if start > five_years_earlier:
                 stock_data = web.DataReader(str(ticker), 'iex',start, end)
                 stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
-
+                stock_data.index = pd.to_datetime(stock_data.index)
                 return stock_data
             else:
                 stock_data = web.DataReader(str(ticker), 'iex',five_years_earlier, end)
                 stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
+                stock_data.index = pd.to_datetime(stock_data.index)
+                print(type(stock_data.index))
 
                 return stock_data
+        except Exception as e:
+            stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
+            stock_data = stock_data[stock_columns]
+            return stock_data
+
+            print(e)
+
+
 
 
     elif data_type == 'real_estate':
 
         real_estate = quandl.get(ticker, start_date=start, end_date=end, api_key = api_key)
+        real_estate.index = pd.to_datetime(real_estate.index)
         return real_estate
     elif data_type == 'economic':
         economic_data = quandl.get(ticker, start_date = start, end_date=end, api_key = api_key)
+        economic_data.index = pd.to_datetime(economic_data.index)
+        economic_data = economic_data.iloc[:,[0]]
 
         return economic_data
 
@@ -63,8 +68,8 @@ def get_the_data(request):
     if request.method == 'POST':
         data_type = request.POST['datatype']
         ticker = request.POST['ticker'].upper()
-        start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
-        end = datetime.strptime(request.POST['end'],'%Y-%m-%d')
+        start = pd.to_datetime(request.POST['start'])
+        end = pd.to_datetime(request.POST['end'])
         try:
             if data_type == 'stock_data':
                 data = get_stock_data(data_type, ticker, start, end)

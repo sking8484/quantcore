@@ -23,8 +23,8 @@ def find_correlation(request):
         ticker3 = request.POST['symbol3'].upper()
         ticker4 = request.POST['symbol4'].upper()
 
-        start = datetime.strptime(request.POST['start'][:10],'%Y-%m-%d')
-        end = datetime.strptime(request.POST['end'][:10],'%Y-%m-%d')
+        start = pd.to_datetime(request.POST['start'])
+        end = pd.to_datetime(request.POST['end'])
         try:
             if datatype_1 == 'stock_data':
                 corr_data_1 = data_views.get_stock_data(datatype_1, ticker1, start, end)
@@ -87,16 +87,15 @@ def find_correlation(request):
 
 
 
-
+            corr_data_df = pd.DataFrame()
             if datatype_3 != 'none' and datatype_4 != 'none':
-                corr_data_df = pd.concat([corr_data_1, corr_data_2, corr_data_3, corr_data_4], axis = 1)
+                corr_data_df = corr_data_df.join([corr_data_1, corr_data_2, corr_data_3, corr_data_4], how='outer')
 
             if datatype_3 != 'none' and datatype_4 == 'none':
-                corr_data_df = pd.concat([corr_data_1, corr_data_2, corr_data_3], axis = 1)
+                corr_data_df = corr_data_df.join([corr_data_1, corr_data_2, corr_data_3], how = 'outer')
 
             if datatype_3 == 'none' and datatype_4 == 'none':
-                corr_data_df = pd.concat([corr_data_1, corr_data_2], axis = 1)
-
+                corr_data_df = corr_data_df.join([corr_data_1, corr_data_2], how = 'outer')
 
             corr_data_df.dropna(inplace = True)
             corr_df = corr_data_df.corr()
