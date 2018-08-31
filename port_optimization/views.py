@@ -70,7 +70,9 @@ def optimize(request):
 
 
             """OPTIMIZATION"""
-            num_ports = 5000
+            if len(tickers) > 10:
+                num_ports = 5000
+            num_ports = 8000
             all_weights = np.zeros((num_ports, len(tickers)))
             ret_arr = np.zeros(num_ports)
             vol_arr = np.zeros(num_ports)
@@ -128,9 +130,9 @@ def optimize(request):
             portfolio_table = pd.concat([optimal_position_val['Total_position'].round(2),non_optimal_position_val['Total_position'].round(2)],axis = 1)
 
             portfolio_table.columns = ['Optimal Position Value','Non Optimal Position Value']
-            global_portfolio_optimal_non_optimal = 0
             global global_portfolio_optimal_non_optimal
             global_portfolio_optimal_non_optimal = portfolio_table
+
 
             portfolio_table['Difference'] = portfolio_table['Optimal Position Value'] - portfolio_table['Non Optimal Position Value']
             table = tables.make_stock_table(portfolio_table.round(2))
