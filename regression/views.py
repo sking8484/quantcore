@@ -34,7 +34,7 @@ def simple_regression(request):
                 X = X['Adj. Close']
                 X.rename('SP500', inplace = True)
             elif request.POST['datatype1'] == 'do_not_run':
-                    return render(request, 'port_optimization/optimization_form.html')
+                return render(request, 'port_optimization/optimization_form.html')
 
 
             else:
