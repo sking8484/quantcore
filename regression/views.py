@@ -14,13 +14,26 @@ from sklearn.model_selection import train_test_split
 import plotly.offline as po
 import plotly.graph_objs as go
 import statsmodels.formula.api as sm
+from port_optimization import views as port_views
 
 def regression_home(request):
     return render(request, 'regression/regression.html')
 
 def simple_regression(request):
     if request.method == "POST":
-        try:
+
+
+        if request.POST['port_regression']:
+            port_regression = request.POST['port_regression']
+            data = port_views.get_optimal_portfolio_table()
+            data['Returns'] = data['Optimal Position Value']/data['Optimal Position Value'][0]
+            y = data['Returns']
+
+            X = data_views.get_stock_data('stock_data', 'SPY', pd.to_datetime('12-12-2010'), datetime.now())
+            X = X['Adj. Close']
+            X.rename('SP500', inplace = True)
+        else:
+
             """GETTING THE DATA"""
             datatype_1 = request.POST['datatype1']
             datatype_2 = request.POST['datatype2']
@@ -55,35 +68,35 @@ def simple_regression(request):
 
 
 
-            """ACTUAL REGRESSION PART"""
+        """ACTUAL REGRESSION PART"""
 
-            dataframe = pd.DataFrame(X)
-            dataframe = dataframe.join(y, how = 'outer')
-            dataframe = dataframe.sort_index(ascending = False)
-            dataframe.dropna(inplace = True)
-            print(dataframe)
+        dataframe = pd.DataFrame(X)
+        dataframe = dataframe.join(y, how = 'outer')
+        dataframe = dataframe.sort_index(ascending = False)
+        dataframe.dropna(inplace = True)
+        print(dataframe)
 
-            X = dataframe.iloc[:,:1]
-            X_name = dataframe.columns[0]
-            y_name = dataframe.columns[1]
-            y = dataframe.iloc[:,-1]
-
-
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
-            from sklearn.linear_model import LinearRegression
-            regressor = LinearRegression()
-            regressor.fit(X_train, y_train)
-            y_pred = regressor.predict(X_train)
+        X = dataframe.iloc[:,:1]
+        X_name = dataframe.columns[0]
+        y_name = dataframe.columns[1]
+        y = dataframe.iloc[:,-1]
 
 
-            regression_plot = plots.plot_regression(X_test, X_train, y_train, y_test, y_pred, X_name, y_name)
-            X = np.append(arr = np.ones((len(X), 1)).astype(int), values =X , axis = 1)
-            regressor_OLS = sm.OLS(endog=y , exog=X).fit()
-            summary = regressor_OLS.summary().as_html()
-        except Exception as e:
-            error_message = e
-            error = 'One or more of your inputs was not accepted: '
-            return render(request,'regression/regression.html', {'error':error, 'error_message':error_message})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
+        from sklearn.linear_model import LinearRegression
+        regressor = LinearRegression()
+        regressor.fit(X_train, y_train)
+        y_pred = regressor.predict(X_train)
+
+
+        regression_plot = plots.plot_regression(X_test, X_train, y_train, y_test, y_pred, X_name, y_name)
+        X = np.append(arr = np.ones((len(X), 1)).astype(int), values =X , axis = 1)
+        regressor_OLS = sm.OLS(endog=y , exog=X).fit()
+        summary = regressor_OLS.summary().as_html()
+        # except Exception as e:
+        #     error_message = e
+        #     error = 'One or more of your inputs was not accepted: '
+        #     return render(request,'regression/regression.html', {'error':error, 'error_message':error_message})
 
         return render(request, 'regression/simple_regression.html', {'regression_plot':regression_plot,
                                                                     'summary':summary})

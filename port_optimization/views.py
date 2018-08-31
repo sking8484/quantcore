@@ -128,6 +128,8 @@ def optimize(request):
             portfolio_table = pd.concat([optimal_position_val['Total_position'].round(2),non_optimal_position_val['Total_position'].round(2)],axis = 1)
 
             portfolio_table.columns = ['Optimal Position Value','Non Optimal Position Value']
+            global global_portfolio_optimal_non_optimal
+            global_portfolio_optimal_non_optimal = portfolio_table
             portfolio_table['Difference'] = portfolio_table['Optimal Position Value'] - portfolio_table['Non Optimal Position Value']
             table = tables.make_stock_table(portfolio_table.round(2))
 
@@ -141,3 +143,6 @@ def optimize(request):
             error = 'One or more of your inputs was not accepted: '
             return render(request, 'port_optimization/optimization_form.html', {'error':error, 'error_message':error_message})
     return render(request, 'port_optimization/optimization_form.html')
+
+def get_optimal_portfolio_table():
+    return global_portfolio_optimal_non_optimal

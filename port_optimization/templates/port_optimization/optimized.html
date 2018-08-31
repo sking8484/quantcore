@@ -32,6 +32,29 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-md-12">
+
+      <form class="form-inline" action="{% url 'regression:simple_regression' %}" method="post">
+        <div class="form-group">
+          {% csrf_token %}
+          <label for="exampleFormControlSelect1">Would you like to run a regression on your portfolio?</label>
+          <select class="form-control" id="exampleFormControlSelect1" name='port_regression'>
+            <br>
+            <option value="run">Yes</option>
+            <option value='do_not_run'>No</option>
+
+
+          </select>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Run Regression">
+
+      </form>
+
+    </div>
+
+
+  </div>
+  <div class="row">
     <div class="col-md-8">
       <div class="container-fluid">
         {{table|safe}}
