@@ -29,11 +29,11 @@ def optimize(request):
 
             # start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
             start = pd.to_datetime(request.POST['start'])
-            if len(tickers) > 7:
-                start = pd.to_datetime('2013-06-01')
-            if len(tickers) > 15:
-                start = pd.to_datetime('2015-06-01')
-                tickers = tickers
+            # if len(tickers) > 7:
+            #     start = pd.to_datetime('2013-06-01')
+            # if len(tickers) > 15:
+            start = pd.to_datetime('2015-06-01')
+            tickers = tickers
 
 
             end = pd.to_datetime(request.POST['end'])
