@@ -27,7 +27,8 @@ def optimize(request):
 
             amount = request.POST['Amount']
 
-            start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
+            # start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
+            start = pd.to_datetime(request.POST['start'])
             if len(tickers) > 7:
                 start = pd.to_datetime('2013-06-01')
             if len(tickers) > 15:
@@ -35,7 +36,7 @@ def optimize(request):
                 tickers = tickers[:15]
 
 
-            end = datetime.strptime(request.POST['end'],'%Y-%m-%d')
+            end = pd.to_datetime(request.POST['end'])
             datatype = 'stock_data'
             database = pd.DataFrame()
             """NON OPTIMAL PORTFOLIO"""
