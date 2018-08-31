@@ -34,7 +34,7 @@ def get_stock_data(data_type, ticker, start, end):
                 stock_data = web.DataReader(str(ticker), 'iex',five_years_earlier, end)
                 stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
                 stock_data.index = pd.to_datetime(stock_data.index)
-                print(type(stock_data.index))
+
 
                 return stock_data
         except Exception as e:
