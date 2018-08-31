@@ -33,7 +33,7 @@ def optimize(request):
                 start = pd.to_datetime('2013-06-01')
             if len(tickers) > 15:
                 start = pd.to_datetime('2015-06-01')
-                tickers = tickers[:15]
+                tickers = tickers[:25]
 
 
             end = pd.to_datetime(request.POST['end'])
