@@ -87,7 +87,7 @@ def optimize(request):
                 sharpe_arr[ind] = ret_arr[ind]/vol_arr[ind]
             max_sharpe = sharpe_arr.argmax()
             optimized_weights = all_weights[max_sharpe,:]
-            sharpe_ratio = sharpe_arr[max_sharpe]
+            sharpe_ratio = sharpe_arr[max_sharpe].round(3)
             max_ret = ret_arr[max_sharpe]
             max_vol = vol_arr[max_sharpe]
             bullet = plots.market_bullet(vol_arr, ret_arr, sharpe_arr, max_vol, max_ret)
