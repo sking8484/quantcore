@@ -137,9 +137,7 @@ def optimize(request):
             return render(request, 'port_optimization/optimized.html', {'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
 
         except Exception as e:
-            print(e)
-            help = (
-            ' If you are NOT using chrome, please enter your dates as follows: YYYY-MM-DD.\n  Please make sure you enter the tickers with a comma and a space next to them.')
-
-            return render(request, 'port_optimization/optimization_form.html', {'help':help})
+            error_message = e
+            error = 'One or more of your inputs was not accepted: '
+            return render(request, 'port_optimization/optimization_form.html', {'error':error, 'error_message':error_message})
     return render(request, 'port_optimization/optimization_form.html')

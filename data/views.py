@@ -19,30 +19,32 @@ def get_stock_data(data_type, ticker, start, end):
     api_key = 'J84FuQJ6AzbBM8hWHviv'
     stock_columns = ['Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume']
     if data_type == 'stock_data':
-        try:
-            import datetime
-            years = 5
-            days_per_year = 365.30
-            five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
+        # try:
+        import datetime
+        years = 5
+        days_per_year = 365.30
+        five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
 
-            if start > five_years_earlier:
-                stock_data = web.DataReader(str(ticker), 'iex',start, end)
-                stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
-                stock_data.index = pd.to_datetime(stock_data.index)
-                return stock_data
-            else:
-                stock_data = web.DataReader(str(ticker), 'iex',five_years_earlier, end)
-                stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
-                stock_data.index = pd.to_datetime(stock_data.index)
-
-
-                return stock_data
-        except Exception as e:
-            stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
-            stock_data = stock_data[stock_columns]
+        if start > five_years_earlier:
+            stock_data = web.DataReader(str(ticker), 'iex',start, end)
+            stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
+            stock_data.index = pd.to_datetime(stock_data.index)
             return stock_data
+        else:
+            stock_data = web.DataReader(str(ticker), 'iex',five_years_earlier, end)
+            stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
+            stock_data.index = pd.to_datetime(stock_data.index)
 
-            print(e)
+
+            return stock_data
+        # except Exception as e:
+        #
+        #
+        #     stock_data = quandl.get('WIKI/' + str(ticker), start_date=start,end_date= end, api_key = api_key)
+        #     stock_data = stock_data[stock_columns]
+        #     return stock_data
+
+
 
 
 
@@ -83,11 +85,9 @@ def get_the_data(request):
                 first_column = pd.DataFrame(data.iloc[:,0])
 
         except Exception as e:
-            print(e)
-            help = (
-            ' If you are NOT using chrome, please enter your dates as follows: YYYY-MM-DD.\n Please Go to https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research' +
-            'and type in your area if you are unsure how to find the correct real estate code. Copy and paste the key into ticker.')
-            return render(request,'data/get_the_data.html', {'help':help})
+            error_message = e
+            error = 'One or more of your inputs was not accepted: '
+            return render(request,'data/get_the_data.html', {'error':error, 'error_message':error_message})
         data.sort_index(ascending = False, inplace = True)
         plotly = plots.stock_plot(data, ticker)
         data_plotly = tables.make_stock_table(data, ticker)

@@ -105,9 +105,9 @@ def find_correlation(request):
             plot = plots.correlation_plot(corr_data_df)
             table = tables.make_corr_table(corr_data_df)
         except Exception as e:
-            print(e)
-            error = 'Please make sure you enter a valid date and symbol'
-            return render(request, 'find_correlation/correlation_template.html', {'error':error})
+            error_message = e
+            error = 'One or more of your inputs was not accepted: '
+            return render(request, 'find_correlation/correlation_template.html', {'error':error, 'error_message':error_message})
 
 
 

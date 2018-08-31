@@ -81,11 +81,9 @@ def simple_regression(request):
             regressor_OLS = sm.OLS(endog=y , exog=X).fit()
             summary = regressor_OLS.summary().as_html()
         except Exception as e:
-            print(e)
-            help = (
-            ' Make sure the data from quandl has enough entries.' +
-            'and type in your area if you are unsure how to find the correct real estate code. Copy and paste the key into ticker.')
-            return render(request,'regression/regression.html', {'help':help})
+            error_message = e
+            error = 'One or more of your inputs was not accepted: '
+            return render(request,'regression/regression.html', {'error':error, 'error_message':error_message})
 
         return render(request, 'regression/simple_regression.html', {'regression_plot':regression_plot,
                                                                     'summary':summary})

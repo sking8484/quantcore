@@ -10,14 +10,13 @@
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Quant-Core</h1>
-    <h3>Type in a ticker symbol</h3>
-    {{ help }}
-    {{error}}
-    <p>If you would like to grab real estate data, please go <a href="https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research">Here</a> </p>
-    <p>If you would like to grab macro economic data, please go <a href="https://www.quandl.com/data/YALE-Yale-Department-of-Economics?keyword=">Here</a> </p>
+    <h1>Correlation Matrix</h1>
+    <h3>Fill in the following fields</h3>
+    <h6>If you would like to grab real estate data, please go <a href="https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research">Here</a> </h6>
+    <h6>If you would like to grab macro economic data, please go <a href="https://www.quandl.com/data/YALE-Yale-Department-of-Economics?keyword=">Here</a> </h6>
 
-
+    {{ error }}
+    {{ error_message }}
 
     <form class="" action="{% url 'correlation:find_correlation' %}" method="post">
       <div class="form-group">

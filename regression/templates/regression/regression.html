@@ -10,13 +10,13 @@
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Quant-Core</h1>
-    <h3>This is the form for a simple regression. Your first input will be your dependent variable</h3>
-    {{ help }}
-    {{error}}
-    <p>If you would like to grab real estate data, please go <a href="https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research">Here</a> </p>
-    <p>If you would like to grab macro economic data, please go <a href="https://www.quandl.com/data/YALE-Yale-Department-of-Economics?keyword=">Here</a> </p>
+    <h1>Regression Analysis</h1>
+    <h3>Fill in the following fields</h3>
+    <h6>If you would like to grab real estate data, please go <a href="https://www.quandl.com/data/ZILLOW-Zillow-Real-Estate-Research">Here</a> </h6>
+    <h6>If you would like to grab macro economic data, please go <a href="https://www.quandl.com/data/YALE-Yale-Department-of-Economics?keyword=">Here</a> </h6>
 
+    {{ error }}
+    {{ error_message }}
     <form class="" action="{% url 'regression:simple_regression' %}" method="post">
       <div class="form-group">
 
