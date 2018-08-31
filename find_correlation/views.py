@@ -62,7 +62,7 @@ def find_correlation(request):
             if datatype_3 == 'real_estate':
 
                 corr_data_3 = data_views.get_stock_data(datatype_3,ticker3,start,end)
-                corr_data_3.rename(columns = {'Adj. Close':ticker}, inplace = True)
+                corr_data_3.columns = ([ticker3])
             if datatype_3 =='economic':
                 corr_data_3 = data_views.get_stock_data(datatype_3, ticker3, start, end)
                 corr_data_3 = corr_data_3.iloc[:, 0]
@@ -78,7 +78,7 @@ def find_correlation(request):
             if datatype_4 == 'real_estate':
 
                 corr_data_4 = data_views.get_stock_data(datatype_4,ticker4,start,end)
-                corr_data_4.rename(columns = {'Adj. Close':ticker4}, inplace = True)
+                corr_data_4.columns = ([ticker4])
             if datatype_4 =='economic':
                 corr_data_4 = data_views.get_stock_data(datatype_4, ticker4, start, end)
                 corr_data_4 = corr_data_4.iloc[:, 0]
