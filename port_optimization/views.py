@@ -6,7 +6,6 @@ import numpy as np
 from . import tables
 from . import plots
 
-global_portfolio_optimal_non_optimal = pd.DataFrame()
 
 def optimize(request):
     if request.method == "POST":

@@ -26,7 +26,7 @@ def simple_regression(request):
             if request.POST['datatype1'] == 'run':
                 port_regression = request.POST['datatype1']
 
-                data = port_views.get_optimal_portfolio_table()
+                data = port_views.global_portfolio_optimal_non_optimal
                 data['Returns'] = data['Optimal Position Value']/data['Optimal Position Value'][0]
                 y = data['Returns']
 
