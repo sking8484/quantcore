@@ -133,9 +133,10 @@ def optimize(request):
             portfolio_table = pd.concat([optimal_position_val['Total_position'].round(2),non_optimal_position_val['Total_position'].round(2)],axis = 1)
 
             portfolio_table.columns = ['Optimal Position Value','Non Optimal Position Value']
-            global global_portfolio_optimal_non_optimal
-            global_portfolio_optimal_non_optimal = portfolio_table
-            placeholder = optimal_portfolio_global_holder()
+            # global global_portfolio_optimal_non_optimal
+            global_portfolio_optimal_non_optimal = portfolio_table.to_json()
+            request.session['global_portfolio_optimal_non_optimal'] = global_portfolio_optimal_non_optimal
+            # placeholder = optimal_portfolio_global_holder()
 
 
             portfolio_table['Difference'] = portfolio_table['Optimal Position Value'] - portfolio_table['Non Optimal Position Value']
@@ -144,7 +145,7 @@ def optimize(request):
             weights_table = tables.weights(weights_ticks_df.round(2))
 
 
-            return render(request, 'port_optimization/optimized.html', {'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
+            return render(request, 'port_optimization/optimized.html', {'global_portfolio_optimal_non_optimal':global_portfolio_optimal_non_optimal ,'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
 
         except Exception as e:
             error_message = e
@@ -152,12 +153,10 @@ def optimize(request):
             return render(request, 'port_optimization/optimization_form.html', {'error':error, 'error_message':error_message})
     return render(request, 'port_optimization/optimization_form.html')
 
-def optimal_portfolio_global_holder():
-    global_variable_holding = global_portfolio_optimal_non_optimal
-    return global_variable_holding
+# def optimal_portfolio_global_holder():
+#     global_variable_holding = global_portfolio_optimal_non_optimal
+#     return global_variable_holding
 
 
-def get_optimal_portfolio_table():
-    global_portfolio_money = optimal_portfolio_global_holder()
-
-    return global_portfolio_money
+# def get_optimal_portfolio_table():
+#     print(request.session['global_portfolio_optimal_non_optimal'])
