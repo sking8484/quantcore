@@ -30,7 +30,6 @@ def optimize(request):
             amount = request.POST['Amount']
             if ',' in amount:
                 amount = amount.replace(',','')
-                print(amount)
 
             # start = datetime.strptime(request.POST['start'],'%Y-%m-%d')
             start = pd.to_datetime(request.POST['start'])
