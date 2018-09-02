@@ -1,5 +1,6 @@
 import plotly.offline as pyo
 import plotly.graph_objs as go
+from . import indicators
 
 def stock_plot(database, ticker):
     index_values = database.index
@@ -22,6 +23,44 @@ def stock_plot(database, ticker):
     fig = go.Figure(data=data, layout=layout)
     plot_div = pyo.plot(fig, output_type='div',include_plotlyjs=False)
     return plot_div
+
+
+def candle_stick_plot(database, ticker):
+    database_plot = database
+    moving_averages = indicators.moving_averages(database_plot)
+    trace1 = go.Candlestick(x=database.index,
+                       open=database_plot['open'],
+                       high=database_plot['high'],
+                       low=database_plot['low'],
+                       close=database_plot['Adj. Close'])
+
+    layout = go.Layout(
+        xaxis = dict(
+            rangeslider = dict(
+                visible = False
+            )
+        )
+    )
+    trace2 = go.Scatter(x=moving_averages.index,
+                        y=moving_averages['EMA_200'],
+                        mode = 'lines',
+                        name='EWM_200')
+    trace3 = go.Scatter(x=moving_averages.index,
+                        y=moving_averages['EMA_100'],
+                        mode = 'lines',
+                        name='EWM_100')
+    trace4 = go.Scatter(x=moving_averages.index,
+                        y=moving_averages['EMA_50'],
+                        mode = 'lines',
+                        name='EWM_50')
+
+
+    data = [trace1]
+
+    fig = go.Figure(data=data,layout=layout)
+    plot_div = pyo.plot(fig, output_type='div',include_plotlyjs=False)
+    return plot_div
+
 
 def real_estate_plot(database, ticker):
 

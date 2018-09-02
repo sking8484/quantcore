@@ -73,9 +73,10 @@ def get_the_data(request):
         start = pd.to_datetime(request.POST['start'])
         end = pd.to_datetime(request.POST['end'])
         try:
-            if data_type == 'stock_data':
-                data = get_stock_data(data_type, ticker, start, end)
+            if data_type == 'stock_data' or data_type == 'stock_data/candlestick':
+                data = get_stock_data('stock_data', ticker, start, end)
                 first_column = pd.DataFrame(data['Adj. Close'])
+                print(data)
 
             elif data_type == 'real_estate':
                 data = get_stock_data(data_type,ticker,start,end)
@@ -89,7 +90,10 @@ def get_the_data(request):
             error = 'One or more of your inputs was not accepted: '
             return render(request,'data/get_the_data.html', {'error':error, 'error_message':error_message})
         data.sort_index(ascending = False, inplace = True)
-        plotly = plots.stock_plot(data, ticker)
+        if data_type == 'stock_data/candlestick':
+            plotly = plots.candle_stick_plot(data, ticker)
+        else:
+            plotly = plots.stock_plot(data, ticker)
         data_plotly = tables.make_stock_table(data, ticker)
 
         return render(request, 'data/mean.html', {'data_html':data_plotly,'ticker':ticker,

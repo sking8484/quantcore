@@ -32,7 +32,9 @@ def simple_regression(request):
                 y = data['Returns']
 
                 X = data_views.get_stock_data('stock_data', 'SPY', pd.to_datetime('12-12-2010'), datetime.now())
-                X = X['Adj. Close']
+                X['Returns'] = X['Adj. Close']/X['Adj. Close'][0]
+
+                X = X['Returns']
                 X.rename('SP500', inplace = True)
             elif request.POST['datatype1'] == 'do_not_run':
                 return render(request, 'port_optimization/optimization_form.html')
@@ -99,11 +101,12 @@ def simple_regression(request):
             X = np.append(arr = np.ones((len(X), 1)).astype(int), values =X , axis = 1)
             regressor_OLS = sm.OLS(endog=y , exog=X).fit()
             summary = regressor_OLS.summary().as_html()
+            beta_value = regressor_OLS.params[1]
         except Exception as e:
             error_message = e
             error = 'One or more of your inputs was not accepted: '
             return render(request,'regression/regression.html', {'error':error, 'error_message':error_message})
 
-        return render(request, 'regression/simple_regression.html', {'regression_plot':regression_plot,
+        return render(request, 'regression/simple_regression.html', {'beta_value':beta_value, 'regression_plot':regression_plot,
                                                                     'summary':summary})
     return render(request, 'regression/regression.html')
