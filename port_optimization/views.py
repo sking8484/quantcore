@@ -5,6 +5,10 @@ import pandas as pd
 import numpy as np
 from . import tables
 from . import plots
+from . import models
+import pandas as pd
+import pandas_datareader as web
+from django.contrib.auth.models import User
 
 
 def optimize(request):
@@ -42,15 +46,32 @@ def optimize(request):
 
 
             end = pd.to_datetime(request.POST['end'])
+            if end > datetime.now():
+                end = datetime.now()
             datatype = 'stock_data'
+            # database = pd.DataFrame()
+            # """NON OPTIMAL PORTFOLIO"""
+            #
+            # for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
+            #     data = data_views.get_stock_data(datatype, ticker, start, end)
+            #     data = data.loc[:, ['Adj. Close']]
+            #
+            #     data.rename(columns = {'Adj. Close':ticker}, inplace = True)
+            #     data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
+            #     data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
+            #     data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
+            #     database = database.join(data, how = 'outer')
+            #     database.dropna(inplace = True)
+
+            data = pd.DataFrame()
+
+            dataframe = web.DataReader(tickers, 'iex', start = start)
             database = pd.DataFrame()
-            """NON OPTIMAL PORTFOLIO"""
-
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
-                data = data_views.get_stock_data(datatype, ticker, start, end)
-                data = data.loc[:, ['Adj. Close']]
+                data = dataframe[ticker]
 
-                data.rename(columns = {'Adj. Close':ticker}, inplace = True)
+                data = data.loc[:, ['close']]
+                data.rename(columns = {'close':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
@@ -111,17 +132,30 @@ def optimize(request):
 
             """OPTIMAL PLOT"""
             datatype = 'stock_data'
-            database = pd.DataFrame()
 
+            data = pd.DataFrame()
+
+            dataframe = web.DataReader(tickers, 'iex', start = start)
+            database = pd.DataFrame()
             for ticker, allocation in zip(tickers, optimized_weights):
-                data = data_views.get_stock_data(datatype, ticker, start, end)
-                data = data.loc[:, ['Adj. Close']]
-                data.rename(columns = {'Adj. Close':ticker}, inplace = True)
+                data = dataframe[ticker]
+
+                data = data.loc[:, ['close']]
+                data.rename(columns = {'close':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
                 database = database.join(data, how = 'outer')
                 database.dropna(inplace = True)
+
+            # for ticker, allocation in zip(tickers, optimized_weights):
+            #     data = data_views.get_stock_data(datatype, ticker, start, end)
+            #     data = data.loc[:, ['Adj. Close']]
+            #     data.rename(columns = {'Adj. Close':ticker}, inplace = True)
+            #     data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
+            #     data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
+            #     data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
+            #     database = database.join(data, how = 'outer')
             optimal_position_val = pd.DataFrame()
             for ticker in tickers:
                 optimal_position_val = pd.concat([optimal_position_val, database[ticker + ' Position_values']],axis = 1)
@@ -129,7 +163,7 @@ def optimize(request):
             optimal_position_val['Total_position'] = optimal_position_val.sum(axis=1)
 
 
-            portfolio_plot = plots.optimal_plot(non_optimal_position_val['Total_position'], optimal_position_val['Total_position'])
+            portfolio_plot = plots.optimal_plot(non_optimal_position_val['Total_position'], optimal_position_val['Total_position'], start, end)
 
 
             portfolio_table = pd.concat([optimal_position_val['Total_position'].round(2),non_optimal_position_val['Total_position'].round(2)],axis = 1)
@@ -147,9 +181,12 @@ def optimize(request):
             weights_table = tables.weights(weights_ticks_df.round(2))
 
 
+            # p = models.sharpe_ratio_analysis(portfolio = tickers, sharpe=sharpe_ratio, start_date = start, end_date = end, user=request.user)
+            # p.save()
             return render(request, 'port_optimization/optimized.html', {'global_portfolio_optimal_non_optimal':global_portfolio_optimal_non_optimal ,'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
 
         except Exception as e:
+            print(e)
             error_message = e
             error = 'One or more of your inputs was not accepted: '
             return render(request, 'port_optimization/optimization_form.html', {'error':error, 'error_message':error_message})

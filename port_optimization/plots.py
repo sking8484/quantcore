@@ -2,12 +2,18 @@ import plotly.offline as po
 import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
+from data import views as data_views
 
-def optimal_plot(non_optimal, optimal):
+def optimal_plot(non_optimal, optimal, start, end):
+    sp_500 = data_views.get_stock_data('stock_data','SPY', start, end )
+    non_optimal = (non_optimal/non_optimal[0])*100
+    optimal = (optimal/optimal[0])*100
+    sp_500 = (sp_500['Adj. Close']/sp_500['Adj. Close'][0])*100
     trace1 = go.Scatter(x=non_optimal.index, y=non_optimal, mode = 'lines', name = 'Non Optimal Portfolio')
     trace2 = go.Scatter(x=optimal.index, y=optimal, mode = 'lines', name = 'Optimized Portfolio')
-    data = [trace1, trace2]
-    layout = go.Layout(title = 'Optimized Vs. Non Optimized portfolio', xaxis={'title':'Price'}, yaxis={'title':'Date'})
+    trace3 = go.Scatter(x = sp_500.index, y=sp_500, mode='lines', name = 'S&P 500')
+    data = [trace1, trace2, trace3]
+    layout = go.Layout(title = 'Optimized Vs. Non Optimized portfolio', xaxis={'title':'Date'}, yaxis={'title':'Returns %'})
     fig = go.Figure(data=data, layout=layout)
     optimal_plots = po.plot(fig, output_type = 'div', include_plotlyjs= False)
     return optimal_plots

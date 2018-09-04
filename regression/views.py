@@ -28,11 +28,11 @@ def simple_regression(request):
 
                 data = request.session['global_portfolio_optimal_non_optimal']
                 data = pd.read_json(data)
-                data['Returns'] = data['Optimal Position Value']/data['Optimal Position Value'][0]
+                data['Returns'] = data['Optimal Position Value']
                 y = data['Returns']
 
                 X = data_views.get_stock_data('stock_data', 'SPY', pd.to_datetime('12-12-2010'), datetime.now())
-                X['Returns'] = X['Adj. Close']/X['Adj. Close'][0]
+                X['Returns'] = X['Adj. Close']
 
                 X = X['Returns']
                 X.rename('SP500', inplace = True)

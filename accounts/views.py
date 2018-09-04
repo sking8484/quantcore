@@ -13,6 +13,7 @@ def sign_up_view(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password = request.POST['password1'], email=request.POST['email1'])
                 auth.login(request, user)
+
                 return redirect('user_posts:home')
         else:
             return render(request, 'accounts/sign_up.html', {'error': 'The passwords must match'})
