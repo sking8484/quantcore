@@ -94,7 +94,7 @@ def simple_regression(request):
             from sklearn.linear_model import LinearRegression
             regressor = LinearRegression()
             regressor.fit(X_train, y_train)
-            y_pred = regressor.predict(X_train)
+            y_pred = regressor.predict(X_test)
 
 
             regression_plot = plots.plot_regression(X_test, X_train, y_train, y_test, y_pred, X_name, y_name)
