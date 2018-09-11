@@ -86,7 +86,7 @@ DATABASES = {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'quantcoredb',
             'USER':'postgres',
-            'PASSWORD':'django1234',
+            'PASSWORD':'st3phen1',
             'HOST':'localhost',
             'PORT':'5432',
 }
