@@ -17,7 +17,7 @@ import datetime
     # return render(request, 'data/just_data.html')
 def get_stock_data(data_type, ticker, start, end):
     api_key = 'J84FuQJ6AzbBM8hWHviv'
-    stock_columns = ['Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume']
+    stock_columns = ['Adj. Open', 'Adj. High', 'Adj. Low', 'AdjClose', 'Adj. Volume']
     if data_type == 'stock_data':
         # try:
         import datetime
@@ -27,12 +27,12 @@ def get_stock_data(data_type, ticker, start, end):
 
         if start > five_years_earlier:
             stock_data = web.DataReader(str(ticker), 'quandl',start, end)
-            stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
+            stock_data.rename(columns = {'close':'AdjClose'}, inplace = True)
             stock_data.index = pd.to_datetime(stock_data.index)
             return stock_data
         else:
             stock_data = web.DataReader(str(ticker), 'quandl',five_years_earlier, end)
-            stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
+            stock_data.rename(columns = {'close':'AdjClose'}, inplace = True)
             stock_data.index = pd.to_datetime(stock_data.index)
 
 
@@ -75,7 +75,7 @@ def get_the_data(request):
         try:
             if data_type == 'stock_data' or data_type == 'stock_data/candlestick':
                 data = get_stock_data('stock_data', ticker, start, end)
-                first_column = pd.DataFrame(data['Adj. Close'])
+                first_column = pd.DataFrame(data['AdjClose'])
                 print(data)
 
             elif data_type == 'real_estate':
