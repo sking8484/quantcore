@@ -74,7 +74,7 @@ def optimize(request):
                 data = dataframe[ticker]
 
                 data = data.loc[:, ['AdjClose']]
-                data.rename(columns = {'AdjClose':ticker}, inplace = True)
+                data.rename({'AdjClose':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
@@ -144,7 +144,7 @@ def optimize(request):
                 data = dataframe[ticker]
 
                 data = data.loc[:, ['AdjClose']]
-                data.rename(columns = {'AdjClose':ticker}, inplace = True)
+                data.rename({'AdjClose':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
