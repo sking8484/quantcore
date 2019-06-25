@@ -78,7 +78,7 @@ def optimize(request):
 
             database = pd.DataFrame()
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
-                data = dataframe[ticker]
+                data = pd.DataFrame(dataframe[ticker])
 
                 #data = data.loc[:, ['AdjClose']]
                 #data.rename(columns = {'AdjClose':ticker}, inplace = True)
@@ -157,7 +157,7 @@ def optimize(request):
 
             database = pd.DataFrame()
             for ticker, allocation in zip(tickers, optimized_weights):
-                data = dataframe[ticker]
+                data = pd.DataFrame(dataframe[ticker])
 
                 #data = data.loc[:, ['AdjClose']]
                 #data.rename(columns = {'AdjClose':ticker}, inplace = True)
