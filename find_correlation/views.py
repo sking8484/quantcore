@@ -28,7 +28,7 @@ def find_correlation(request):
         try:
             if datatype_1 == 'stock_data':
                 corr_data_1 = data_views.get_stock_data(datatype_1, ticker1, start, end)
-                corr_data_1 = corr_data_1['Adj. Close']
+                corr_data_1 = corr_data_1['AdjClose']
                 corr_data_1.rename(ticker1, inplace = True)
 
             if datatype_1=='real_estate':
@@ -41,7 +41,7 @@ def find_correlation(request):
 
             if datatype_2 == 'stock_data':
                 corr_data_2 = data_views.get_stock_data(datatype_2, ticker2, start, end)
-                corr_data_2 = corr_data_2['Adj. Close']
+                corr_data_2 = corr_data_2['AdjClose']
                 corr_data_2.rename(ticker2, inplace = True)
 
             if datatype_2 == 'real_estate':
@@ -56,7 +56,7 @@ def find_correlation(request):
             if datatype_3 == 'stock_data':
 
                 corr_data_3 = data_views.get_stock_data(datatype_3, ticker3, start, end)
-                corr_data_3 = corr_data_3['Adj. Close']
+                corr_data_3 = corr_data_3['AdjClose']
                 corr_data_3.rename(ticker3, inplace = True)
 
             if datatype_3 == 'real_estate':
@@ -72,7 +72,7 @@ def find_correlation(request):
 
 
                 corr_data_4 = data_views.get_stock_data(datatype_4, ticker4, start, end)
-                corr_data_4 = corr_data_4['Adj. Close']
+                corr_data_4 = corr_data_4['AdjClose']
                 corr_data_4.rename(ticker4, inplace = True)
 
             if datatype_4 == 'real_estate':

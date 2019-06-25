@@ -32,7 +32,7 @@ def simple_regression(request):
                 y = data['Returns']
 
                 X = data_views.get_stock_data('stock_data', 'SPY', pd.to_datetime('12-12-2010'), datetime.now())
-                X['Returns'] = X['Adj. Close']
+                X['Returns'] = X['AdjClose']
 
                 X = X['Returns']
                 X.rename('SP500', inplace = True)
@@ -52,7 +52,7 @@ def simple_regression(request):
                 # try:
                 if datatype_1 == 'stock_data':
                     y = data_views.get_stock_data(datatype_1, ticker1, start, end)
-                    y = y['Adj. Close']
+                    y = y['AdjClose']
                     y.rename(ticker1, inplace = True)
 
                 if datatype_1=='real_estate':
@@ -64,7 +64,7 @@ def simple_regression(request):
 
                 if datatype_2 == 'stock_data':
                     X = data_views.get_stock_data(datatype_2, ticker2, start, end)
-                    X = X['Adj. Close']
+                    X = X['AdjClose']
                     X.rename(ticker2, inplace = True)
 
                 if datatype_2 == 'real_estate':
