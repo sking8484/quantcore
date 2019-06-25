@@ -57,9 +57,9 @@ def optimize(request):
             #
             # for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
             #     data = data_views.get_stock_data(datatype, ticker, start, end)
-            #     data = data.loc[:, ['AdjClose']]
+            #     data = data.loc[:, ['AdjAdjClose']]
             #
-            #     data.rename(columns = {'AdjClose':ticker}, inplace = True)
+            #     data.rename(columns = {'AdjAdjClose':ticker}, inplace = True)
             #     data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
             #     data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
             #     data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
@@ -73,8 +73,8 @@ def optimize(request):
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
                 data = dataframe[ticker]
 
-                data = data.loc[:, ['close']]
-                data.rename(columns = {'close':ticker}, inplace = True)
+                data = data.loc[:, ['AdjClose']]
+                data.rename(columns = {'AdjClose':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
@@ -143,8 +143,8 @@ def optimize(request):
             for ticker, allocation in zip(tickers, optimized_weights):
                 data = dataframe[ticker]
 
-                data = data.loc[:, ['close']]
-                data.rename(columns = {'close':ticker}, inplace = True)
+                data = data.loc[:, ['AdjClose']]
+                data.rename(columns = {'AdjClose':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
@@ -153,8 +153,8 @@ def optimize(request):
 
             # for ticker, allocation in zip(tickers, optimized_weights):
             #     data = data_views.get_stock_data(datatype, ticker, start, end)
-            #     data = data.loc[:, ['AdjClose']]
-            #     data.rename(columns = {'AdjClose':ticker}, inplace = True)
+            #     data = data.loc[:, ['AdjAdjClose']]
+            #     data.rename(columns = {'AdjAdjClose':ticker}, inplace = True)
             #     data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
             #     data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
             #     data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
