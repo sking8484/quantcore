@@ -26,12 +26,12 @@ def get_stock_data(data_type, ticker, start, end):
         five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
 
         if start > five_years_earlier:
-            stock_data = web.DataReader(str(ticker), 'iex',start, end)
+            stock_data = web.DataReader(str(ticker), 'quandl',start, end)
             stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
             stock_data.index = pd.to_datetime(stock_data.index)
             return stock_data
         else:
-            stock_data = web.DataReader(str(ticker), 'iex',five_years_earlier, end)
+            stock_data = web.DataReader(str(ticker), 'quandl',five_years_earlier, end)
             stock_data.rename(columns = {'close':'Adj. Close'}, inplace = True)
             stock_data.index = pd.to_datetime(stock_data.index)
 

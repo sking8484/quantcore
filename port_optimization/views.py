@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from data import views as data_views
 from datetime import datetime
+import datetime as dt
 import pandas as pd
 import numpy as np
 from . import tables
@@ -41,7 +42,9 @@ def optimize(request):
             #     start = pd.to_datetime('2013-06-01')
             if len(tickers) > 30:
                 tickers = tickers[:30]
-            start = pd.to_datetime('2015-06-01')
+            if start < (datetime.now() - dt.timedelta(weeks = (52*5))):
+                start = datetime.now() - dt.timedelta(weeks = (52*4))
+            #start = pd.to_datetime('2015-06-01')
             tickers = tickers
 
 
@@ -65,7 +68,7 @@ def optimize(request):
 
             data = pd.DataFrame()
 
-            dataframe = web.DataReader(tickers, 'iex', start = start)
+            dataframe = web.DataReader(tickers, 'quandl', start = start)
             database = pd.DataFrame()
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
                 data = dataframe[ticker]
@@ -135,7 +138,7 @@ def optimize(request):
 
             data = pd.DataFrame()
 
-            dataframe = web.DataReader(tickers, 'iex', start = start)
+            dataframe = web.DataReader(tickers, 'quandl', start = start)
             database = pd.DataFrame()
             for ticker, allocation in zip(tickers, optimized_weights):
                 data = dataframe[ticker]
