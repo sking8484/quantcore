@@ -68,13 +68,20 @@ def optimize(request):
 
             data = pd.DataFrame()
 
-            dataframe = web.DataReader(tickers, 'quandl', start = start)
+            dataframe = pd.DataFrame()
+
+            for stock in tickers:
+                stock_data = web.DataReader(stock, 'quandl', start = '2015-01-01')
+                stock_data = pd.DataFrame(data['AdjClose'])
+                stock_data.rename(columns = {'AdjClose':stock}, inplace = True)
+                dataframe = pd.concat([dataframe, stock_data], axis = 1)
+
             database = pd.DataFrame()
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
                 data = dataframe[ticker]
 
-                data = data.loc[:, ['AdjClose']]
-                data.rename(columns = {'AdjClose':ticker}, inplace = True)
+                #data = data.loc[:, ['AdjClose']]
+                #data.rename(columns = {'AdjClose':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
@@ -152,8 +159,8 @@ def optimize(request):
             for ticker, allocation in zip(tickers, optimized_weights):
                 data = dataframe[ticker]
 
-                data = data.loc[:, ['AdjClose']]
-                data.rename(columns = {'AdjClose':ticker}, inplace = True)
+                #data = data.loc[:, ['AdjClose']]
+                #data.rename(columns = {'AdjClose':ticker}, inplace = True)
                 data[ticker + ' Normed_Returns'] = data[ticker]/data[ticker].iloc[0]
                 data[ticker + ' Allocation'] = data[ticker + ' Normed_Returns']*allocation
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
