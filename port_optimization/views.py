@@ -72,7 +72,7 @@ def optimize(request):
 
             for stock in tickers:
                 stock_data = web.DataReader(stock, 'quandl', start = '2015-01-01')
-                stock_data = pd.DataFrame(data['AdjClose'])
+                stock_data = pd.DataFrame(stock_data['AdjClose'])
                 stock_data.rename(columns = {'AdjClose':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
 
@@ -149,7 +149,7 @@ def optimize(request):
 
             for stock in tickers:
                 stock_data = web.DataReader(stock, 'quandl', start = '2015-01-01')
-                stock_data = pd.DataFrame(data['AdjClose'])
+                stock_data = pd.DataFrame(stock_data['AdjClose'])
                 stock_data.rename(columns = {'AdjClose':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
 
