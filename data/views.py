@@ -6,6 +6,7 @@ import quandl
 from . import plots, tables
 import numpy as np
 import datetime
+from iexfinance import get_historical_data
 
 # Create your views here.
 
