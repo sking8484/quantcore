@@ -72,10 +72,12 @@ def optimize(request):
             dataframe = pd.DataFrame()
 
             for stock in tickers:
-                stock_data = get_historical_data(stock,start = '2018-01-01', end = '2019-01-01',token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
-                stock_data = pd.DataFrame(stock_data['close'])
+                stock_data = get_historical_data(stock,start = '2018-01-01', end = pd.to_datetime(datetime.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
+
+                stock_data = stock_data[['close']]
                 stock_data.rename(columns = {'close':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
+
 
             database = pd.DataFrame()
             for ticker, allocation in zip(tickers, [1/len(tickers) for ticker in tickers]):
@@ -149,8 +151,8 @@ def optimize(request):
             dataframe = pd.DataFrame()
 
             for stock in tickers:
-                stock_data = get_historical_data(stock,start = '2018-01-01', end = '2019-01-01',token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
-                stock_data = pd.DataFrame(stock_data['close'])
+                stock_data = get_historical_data(stock,start = '2018-01-01', end = pd.to_datetime(datetime.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
+                stock_data = stock_data[['close']]
                 stock_data.rename(columns = {'close':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
 
@@ -167,6 +169,8 @@ def optimize(request):
                 data[ticker + ' Position_values'] = data[ticker + ' Allocation']*int(amount)
                 database = database.join(data, how = 'outer')
                 database.dropna(inplace = True)
+
+
 
             # for ticker, allocation in zip(tickers, optimized_weights):
             #     data = data_views.get_stock_data(datatype, ticker, start, end)
@@ -201,21 +205,16 @@ def optimize(request):
             weights_table = tables.weights(weights_ticks_df.round(2))
 
 
-            # p = models.sharpe_ratio_analysis(portfolio = tickers, sharpe=sharpe_ratio, start_date = start, end_date = end, user=request.user)
-            # p.save()
+
             return render(request, 'port_optimization/optimized.html', {'global_portfolio_optimal_non_optimal':global_portfolio_optimal_non_optimal ,'sharpe_ratio':sharpe_ratio, 'weights_table':weights_table,'table':table,'tickers':tickers, 'portfolio_plot':portfolio_plot, 'bullet':bullet})
+
+
 
         except Exception as e:
             print(e)
+            print(e.args)
             error_message = e
             error = 'One or more of your inputs was not accepted: '
             return render(request, 'port_optimization/optimization_form.html', {'error':error, 'error_message':error_message})
+
     return render(request, 'port_optimization/optimization_form.html')
-
-# def optimal_portfolio_global_holder():
-#     global_variable_holding = global_portfolio_optimal_non_optimal
-#     return global_variable_holding
-
-
-# def get_optimal_portfolio_table():
-#     print(request.session['global_portfolio_optimal_non_optimal'])

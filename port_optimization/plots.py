@@ -6,9 +6,11 @@ from data import views as data_views
 
 def optimal_plot(non_optimal, optimal, start, end):
     sp_500 = data_views.get_stock_data('stock_data','SPY', start, end )
+    print(type(sp_500))
     non_optimal = (non_optimal/non_optimal[0])*100
     optimal = (optimal/optimal[0])*100
-    sp_500 = (sp_500['Adj. Close']/sp_500['Adj. Close'][0])*100
+    sp_500 = (sp_500['close']/sp_500['close'][0])*100
+
     trace1 = go.Scatter(x=non_optimal.index, y=non_optimal, mode = 'lines', name = 'Non Optimal Portfolio')
     trace2 = go.Scatter(x=optimal.index, y=optimal, mode = 'lines', name = 'Optimized Portfolio')
     trace3 = go.Scatter(x = sp_500.index, y=sp_500, mode='lines', name = 'S&P 500')
