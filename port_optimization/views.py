@@ -10,6 +10,7 @@ from . import models
 import pandas as pd
 import pandas_datareader as web
 from django.contrib.auth.models import User
+from iexfinance.stocks import get_historical_data
 
 
 def optimize(request):
@@ -71,9 +72,9 @@ def optimize(request):
             dataframe = pd.DataFrame()
 
             for stock in tickers:
-                stock_data = web.DataReader(stock, 'quandl', start = '2015-01-01')
-                stock_data = pd.DataFrame(stock_data['AdjClose'])
-                stock_data.rename(columns = {'AdjClose':stock}, inplace = True)
+                stock_data = get_historical_data(stock,start = '2018-01-01', end = '2019-01-01',token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
+                stock_data = pd.DataFrame(stock_data['close'])
+                stock_data.rename(columns = {'close':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
 
             database = pd.DataFrame()
@@ -148,9 +149,9 @@ def optimize(request):
             dataframe = pd.DataFrame()
 
             for stock in tickers:
-                stock_data = web.DataReader(stock, 'quandl', start = '2015-01-01')
-                stock_data = pd.DataFrame(stock_data['AdjClose'])
-                stock_data.rename(columns = {'AdjClose':stock}, inplace = True)
+                stock_data = get_historical_data(stock,start = '2018-01-01', end = '2019-01-01',token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
+                stock_data = pd.DataFrame(stock_data['close'])
+                stock_data.rename(columns = {'close':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
 
 
