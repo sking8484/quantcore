@@ -29,7 +29,7 @@ def get_stock_data(data_type, ticker, start, end):
         if start > five_years_earlier:
             stock_data = get_historical_data(ticker,start = '2018-01-01', end = '2019-01-01',token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
             stock_data = pd.DataFrame(stock_data['close'])
-            stock_data.rename(columns = {'close':stock}, inplace = True)
+            #stock_data.rename(columns = {'close':stock}, inplace = True)
             dataframe = pd.concat([dataframe, stock_data], axis = 1)
 
         else:
