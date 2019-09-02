@@ -72,7 +72,7 @@ def optimize(request):
             dataframe = pd.DataFrame()
 
             for stock in tickers:
-                stock_data = get_historical_data(stock,start = '2018-01-01', end = pd.to_datetime(dt.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
+                stock_data = get_historical_data(stock,start = '2018-01-01', end = pd.to_datetime(dt.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas', close_only=True)
 
                 stock_data = stock_data[['close']]
                 stock_data.rename(columns = {'close':stock}, inplace = True)
@@ -151,7 +151,7 @@ def optimize(request):
             dataframe = pd.DataFrame()
 
             for stock in tickers:
-                stock_data = get_historical_data(stock,start = '2018-01-01', end = pd.to_datetime(dt.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas')
+                stock_data = get_historical_data(stock,start = '2018-01-01', end = pd.to_datetime(dt.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas', close_only=True)
                 stock_data = stock_data[['close']]
                 stock_data.rename(columns = {'close':stock}, inplace = True)
                 dataframe = pd.concat([dataframe, stock_data], axis = 1)
