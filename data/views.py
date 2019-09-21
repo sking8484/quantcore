@@ -26,19 +26,18 @@ def get_stock_data(data_type, ticker, start, end):
         days_per_year = 365.30
         five_years_earlier = datetime.datetime.now() - datetime.timedelta(days=(years*days_per_year))
 
-        if start != five_years_earlier:
-            stock_data = get_historical_data(ticker,start = '2018-01-01', end = pd.to_datetime(datetime.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas',close_only=True)
-            stock_data = stock_data[['close']]
-            #stock_data.rename(columns = {'close':stock}, inplace = True)
-            #dataframe = pd.concat([dataframe, stock_data], axis = 1)
-            return stock_data
-        else:
-            stock_data = web.DataReader(str(ticker), 'quandl',five_years_earlier, end)
-            stock_data.rename(columns = {'Close':'AdjClose'}, inplace = True)
-            stock_data.index = pd.to_datetime(stock_data.index)
-
-
-            return stock_data
+        stock_data = get_historical_data(ticker,start = '2018-01-01', end = pd.to_datetime(datetime.datetime.today()),token ='sk_6d1c2037a984473895a42a17710cf794', output_format = 'pandas',close_only=True)
+        stock_data = stock_data[['close']]
+        #stock_data.rename(columns = {'close':stock}, inplace = True)
+        #dataframe = pd.concat([dataframe, stock_data], axis = 1)
+        return stock_data
+        # else:
+        #     stock_data = web.DataReader(str(ticker), 'quandl',five_years_earlier, end)
+        #     stock_data.rename(columns = {'Close':'AdjClose'}, inplace = True)
+        #     stock_data.index = pd.to_datetime(stock_data.index)
+        #
+        #
+        #     return stock_data
         # except Exception as e:
         #
         #
