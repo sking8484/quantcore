@@ -76,7 +76,7 @@ def get_the_data(request):
         try:
             if data_type == 'stock_data' or data_type == 'stock_data/candlestick':
                 data = get_stock_data('stock_data', ticker, start, end)
-                first_column = pd.DataFrame(data['AdjClose'])
+                first_column = pd.DataFrame(data['close'])
                 print(data)
 
             elif data_type == 'real_estate':
