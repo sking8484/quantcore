@@ -32,7 +32,7 @@ def candle_stick_plot(database, ticker):
                        open=database_plot['open'],
                        high=database_plot['high'],
                        low=database_plot['low'],
-                       close=database_plot['Adj. Close'])
+                       close=database_plot['close'])
 
     layout = go.Layout(
         xaxis = dict(
